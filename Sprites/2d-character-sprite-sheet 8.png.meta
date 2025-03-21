@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5bdc96ca618efc045ac6be813fcf126c
+guid: ccc6e3d9f13ced249b6a26655bfb055c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,22 +110,85 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 2d-character-sprite-sheet 4_0
+      name: 2d-character-sprite-sheet 8_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 19
-        height: 65
+        width: 30.75
+        height: 68
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bbda3deaa33ddda49baa80286d4db1fd
-      internalID: 1161246222
+      spriteID: d46cf995f6e567b4da11f0a21ea9adb5
+      internalID: -634986522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2d-character-sprite-sheet 8_1
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 0
+        width: 27
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3314212b18de0fc4bb765b6463681f62
+      internalID: 862491991
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2d-character-sprite-sheet 8_2
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 0
+        width: 24
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04dbec1cdfac55a4aa4baf12bf0e3347
+      internalID: 755916908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2d-character-sprite-sheet 8_3
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 0
+        width: 35
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2613e0ceb6dd4c54ba63b3195c98ee8c
+      internalID: 769356859
       vertices: []
       indices: 
       edges: []
@@ -141,7 +204,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      2d-character-sprite-sheet 4_0: 1161246222
+      2d-character-sprite-sheet 8_0: -634986522
+      2d-character-sprite-sheet 8_1: 862491991
+      2d-character-sprite-sheet 8_2: 755916908
+      2d-character-sprite-sheet 8_3: 769356859
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

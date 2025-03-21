@@ -115,10 +115,10 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 22
+        width: 19
         height: 65
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -126,27 +126,6 @@ TextureImporter:
       bones: []
       spriteID: bbda3deaa33ddda49baa80286d4db1fd
       internalID: 1161246222
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 2d-character-sprite-sheet 4_1
-      rect:
-        serializedVersion: 2
-        x: 23
-        y: 0
-        width: 26
-        height: 65
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0a82ee1367ae44a42ad25bc80f3af175
-      internalID: 508750652
       vertices: []
       indices: 
       edges: []
@@ -163,7 +142,6 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       2d-character-sprite-sheet 4_0: 1161246222
-      2d-character-sprite-sheet 4_1: 508750652
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
