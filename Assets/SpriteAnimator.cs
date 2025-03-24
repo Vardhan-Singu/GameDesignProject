@@ -14,25 +14,25 @@ public class SpriteAnimator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.D, KeyCode.LeftShift))
-        {
-            animator.SetInteger("AnimState", 1);
-        }
-        if (Input.GetKey(KeyCode.A, KeyCode.LeftShift))
-        {
-            animator.SetInteger("AnimState", 3);
-        }
-        if (Input.GetKey(KeyCode.W))
-        {
-            animator.SetInteger("AnimState", 2);
-        }
-        if (Input.GetKey(KeyCode.W, KeyCode.A))
-        {
-            animator.SetInteger("AnimState", 4);
-        }
-        else
-        {
-            animator.SetInteger("AnimState", 0);
-        }
+    if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.LeftShift))
+    {
+        animator.SetInteger("AnimState", 1);
+    }
+    else if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.LeftShift))
+    {
+        animator.SetInteger("AnimState", 3);
+    }
+    else if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.A))
+    {
+        animator.SetInteger("AnimState", 4);
+    }
+    else if (Input.GetKey(KeyCode.W))
+    {
+        animator.SetInteger("AnimState", 2);
+    }
+    else
+    {
+        animator.SetInteger("AnimState", 0);
+    }
     }
 }
