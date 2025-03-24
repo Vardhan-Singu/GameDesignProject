@@ -20,11 +20,15 @@ public class SpriteAnimator : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.A))
         {
-            animator.SetInteger("AnimState", 1);
+            animator.SetInteger("AnimState", 3);
         }
         if (Input.GetKey(KeyCode.W))
         {
             animator.SetInteger("AnimState", 2);
+        }
+        if (Input.GetKey(KeyCode.W, KeyCode.A))
+        {
+            animator.SetInteger("AnimState", 4);
         }
         else
         {

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5bdc96ca618efc045ac6be813fcf126c
+guid: a9b77086fd5ee4c46a16442598f60931
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 2d-character-sprite-sheet 4_0
+      name: 2d-character-sprite-sheet 7_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 19
-        height: 65
+        width: 29
+        height: 67
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,8 +124,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bbda3deaa33ddda49baa80286d4db1fd
-      internalID: 1161246222
+      spriteID: 0c41ac08ef0fa0a46b9bba86cf572bb7
+      internalID: -718370132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2d-character-sprite-sheet 7_1
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 0
+        width: 29
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7da614b224d2fd347bda728748b6c6d4
+      internalID: -1618382018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2d-character-sprite-sheet 7_2
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 0
+        width: 29
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48ac19c63b7e33046b75e17302736c5b
+      internalID: -1416485335
       vertices: []
       indices: 
       edges: []
@@ -141,7 +183,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      2d-character-sprite-sheet 4_0: 1161246222
+      2d-character-sprite-sheet 7_0: -718370132
+      2d-character-sprite-sheet 7_1: -1618382018
+      2d-character-sprite-sheet 7_2: -1416485335
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
