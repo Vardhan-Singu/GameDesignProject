@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
         {
             moveDirection = 1;
         }
-        else if (isGrounded || r2d.velocity.magnitude < 0.01f)
+        else if (isGrounded || r2d.linearVelocity.magnitude < 0.01f)
         {
             moveDirection = 0;
         }
@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.W) && isGrounded)
         {
             // Apply movement velocity in the y direction
-            r2d.velocity = new Vector2(r2d.velocity.x, jumpHeight);
+            r2d.linearVelocity = new Vector2(r2d.linearVelocity.x, jumpHeight);
             this.GetComponent<AudioSource>().Play();
         }
 
@@ -101,7 +101,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // Apply movement velocity in the x direction
-        r2d.velocity = new Vector2((moveDirection) * maxSpeed, r2d.velocity.y);
+        r2d.linearVelocity = new Vector2((moveDirection) * maxSpeed, r2d.linearVelocity.y);
 
     }
 }

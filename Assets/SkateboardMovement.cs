@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.drag = 0;
+        rb.linearDamping = 0;
         currentMaxSpeed = maxSpeed;
     }
 
@@ -55,13 +55,13 @@ public class PlayerMovement : MonoBehaviour
     if (move != 0)
     {
         rb.AddForce(new Vector2(move * currentAcceleration, 0), ForceMode2D.Force);
-        rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -currentMaxSpeed, currentMaxSpeed), rb.velocity.y);
+        rb.linearVelocity = new Vector2(Mathf.Clamp(rb.linearVelocity.x, -currentMaxSpeed, currentMaxSpeed), rb.linearVelocity.y);
     }
     
     // Brake when holding a key (e.g., Down Arrow)
     if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
     {
-        rb.velocity = new Vector2(rb.velocity.x * (1f - brakeForce * Time.fixedDeltaTime), rb.velocity.y);
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x * (1f - brakeForce * Time.fixedDeltaTime), rb.linearVelocity.y);
     }
     }
 }
