@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     public float naturalDrag = 0.02f;
     public float speedDecayRate = 0.99f; // How gradually speed returns to normal
     public float brakeForce = 3f;
-    public float torqueForce = 5f; // ✅ New: torque amount for rotation
+    public float torqueForce = 100f; // ✅ New: torque amount for rotation
 
     private float move;
     private Rigidbody2D rb;
