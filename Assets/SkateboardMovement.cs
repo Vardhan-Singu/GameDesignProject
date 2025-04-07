@@ -12,12 +12,17 @@ public class PlayerMovement : MonoBehaviour
     public float speedDecayRate = 0.99f;
     public float brakeForce = 3f;
     public float torqueForce = 100f;
+    public float CastDistance;
+    public Vector2 boxSize;
+    public LayerMask groundLayer;
     private float move;
     private Rigidbody2D rb;
     private bool isBoosting = false;
     private float boostEndTime = 0f;
     private float currentMaxSpeed;
     private bool isGrounded;
+
+    
 
     void Start()
     {
@@ -26,11 +31,26 @@ public class PlayerMovement : MonoBehaviour
         rb.freezeRotation = false;
         currentMaxSpeed = maxSpeed;
     }
+    
+    public bool CheckIfGrounded()
+    {
+        if (Physics2D.BoxCast(transform.position, boxSize, 0, -transform.up, CastDistance, groundLayer))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    private void onDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(transform.position-transform.up * CastDistance, boxSize);
+    }
 
     void Update()
     {
-        
-
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
         {
             isBoosting = true;
@@ -78,7 +98,5 @@ public class PlayerMovement : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x * (1f - brakeForce * Time.fixedDeltaTime), rb.linearVelocity.y);
         }
     }
-
-    // ✅ Draw the ground check radius in the editor
 
 }
