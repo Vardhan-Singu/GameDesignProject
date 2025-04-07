@@ -12,12 +12,6 @@ public class PlayerMovement : MonoBehaviour
     public float speedDecayRate = 0.99f;
     public float brakeForce = 3f;
     public float torqueForce = 100f;
-
-    public float ollieForce = 5f; // ✅ Ollie jump force
-    public LayerMask groundLayer; // ✅ What counts as ground
-    public Transform groundCheck; // ✅ Where to check for ground
-    public float groundCheckRadius = 0.1f;
-
     private float move;
     private Rigidbody2D rb;
     private bool isBoosting = false;
@@ -35,15 +29,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        // ✅ Ground check for ollie
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
-
-        // ✅ Ollie when on ground
-        if (isGrounded && Input.GetKeyDown(KeyCode.Space))
-        {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0); // Cancel downward speed
-            rb.AddForce(Vector2.up * ollieForce, ForceMode2D.Impulse);
-        }
+        
 
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
         {
@@ -84,7 +70,7 @@ public class PlayerMovement : MonoBehaviour
         if (move != 0)
         {
             rb.AddForce(new Vector2(move * currentAcceleration, 0), ForceMode2D.Force);
-            rb.linearVelocity = new Vector2(Mathf.Clamp(rb.linearVelocity.x, -currentMaxSpeed, currentMaxSpeed), rb.linearVelocity.y);
+            //rb.linearVelocity = new Vector2(Mathf.Clamp(rb.linearVelocity.x, -currentMaxSpeed, currentMaxSpeed), rb.linearVelocity.y);
         }
 
         if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
@@ -94,12 +80,5 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // ✅ Draw the ground check radius in the editor
-    void OnDrawGizmosSelected()
-    {
-        if (groundCheck != null)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
-        }
-    }
+
 }
