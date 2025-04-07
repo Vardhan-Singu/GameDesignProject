@@ -9,35 +9,49 @@ public class PlayerMovement : MonoBehaviour
     public float boostMaxSpeed = 8f;
     public float boostDuration = 0.5f;
     public float naturalDrag = 0.02f;
-    public float speedDecayRate = 0.99f; // How gradually speed returns to normal
+    public float speedDecayRate = 0.99f;
     public float brakeForce = 3f;
-    public float torqueForce = 100f; // ✅ New: torque amount for rotation
+    public float torqueForce = 100f;
+
+    public float ollieForce = 5f; // ✅ Ollie jump force
+    public LayerMask groundLayer; // ✅ What counts as ground
+    public Transform groundCheck; // ✅ Where to check for ground
+    public float groundCheckRadius = 0.1f;
 
     private float move;
     private Rigidbody2D rb;
     private bool isBoosting = false;
     private float boostEndTime = 0f;
     private float currentMaxSpeed;
+    private bool isGrounded;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         rb.linearDamping = 0;
-        rb.freezeRotation = false; // ✅ Let physics rotate the board
+        rb.freezeRotation = false;
         currentMaxSpeed = maxSpeed;
     }
 
     void Update()
     {
-        // Detect Shift key tap
+        // ✅ Ground check for ollie
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+
+        // ✅ Ollie when on ground
+        if (isGrounded && Input.GetKeyDown(KeyCode.Space))
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0); // Cancel downward speed
+            rb.AddForce(Vector2.up * ollieForce, ForceMode2D.Impulse);
+        }
+
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
         {
             isBoosting = true;
             boostEndTime = Time.time + boostDuration;
-            currentMaxSpeed = boostMaxSpeed; // Temporarily increase max speed
+            currentMaxSpeed = boostMaxSpeed;
         }
 
-        // Gradually let the max speed decay instead of resetting immediately
         if (Time.time > boostEndTime && isBoosting)
         {
             isBoosting = false;
@@ -45,20 +59,19 @@ public class PlayerMovement : MonoBehaviour
 
         if (!isBoosting && currentMaxSpeed > maxSpeed)
         {
-            currentMaxSpeed *= speedDecayRate; // Slowly return to normal speed
-            if (currentMaxSpeed < maxSpeed) currentMaxSpeed = maxSpeed; // Prevent undershooting
+            currentMaxSpeed *= speedDecayRate;
+            if (currentMaxSpeed < maxSpeed) currentMaxSpeed = maxSpeed;
         }
 
-        // ✅ Mid-air tilt using torque
         if (Mathf.Abs(rb.linearVelocity.y) > 0.1f)
         {
             if (Input.GetKey(KeyCode.Q))
             {
-                rb.AddTorque(torqueForce * Time.deltaTime, ForceMode2D.Force); // Tilt counter-clockwise
+                rb.AddTorque(torqueForce * Time.deltaTime, ForceMode2D.Force);
             }
             if (Input.GetKey(KeyCode.E))
             {
-                rb.AddTorque(-torqueForce * Time.deltaTime, ForceMode2D.Force); // Tilt clockwise
+                rb.AddTorque(-torqueForce * Time.deltaTime, ForceMode2D.Force);
             }
         }
     }
@@ -74,10 +87,19 @@ public class PlayerMovement : MonoBehaviour
             rb.linearVelocity = new Vector2(Mathf.Clamp(rb.linearVelocity.x, -currentMaxSpeed, currentMaxSpeed), rb.linearVelocity.y);
         }
 
-        // Brake when holding a key (e.g., Down Arrow or S)
         if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x * (1f - brakeForce * Time.fixedDeltaTime), rb.linearVelocity.y);
+        }
+    }
+
+    // ✅ Draw the ground check radius in the editor
+    void OnDrawGizmosSelected()
+    {
+        if (groundCheck != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
         }
     }
 }
