@@ -34,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
     
     public bool CheckIfGrounded()
     {
+        Debug.Log("GroundedCalled: " + isGrounded);
         if (Physics2D.BoxCast(transform.position, boxSize, 0, -transform.up, CastDistance, groundLayer))
         {
             return true;
@@ -42,8 +43,9 @@ public class PlayerMovement : MonoBehaviour
         {
             return false;
         }
+        
     }
-    private void onDrawGizmos()
+    private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(transform.position-transform.up * CastDistance, boxSize);
@@ -51,36 +53,40 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
+        Debug.Log("Grounded: " + isGrounded);
+        isGrounded = CheckIfGrounded();
+
+        if (isGrounded && (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)))
         {
-            isBoosting = true;
-            boostEndTime = Time.time + boostDuration;
-            currentMaxSpeed = boostMaxSpeed;
+        isBoosting = true;
+        boostEndTime = Time.time + boostDuration;
+        currentMaxSpeed = boostMaxSpeed;
         }
 
         if (Time.time > boostEndTime && isBoosting)
         {
-            isBoosting = false;
+        isBoosting = false;
         }
 
         if (!isBoosting && currentMaxSpeed > maxSpeed)
         {
-            currentMaxSpeed *= speedDecayRate;
-            if (currentMaxSpeed < maxSpeed) currentMaxSpeed = maxSpeed;
+        currentMaxSpeed *= speedDecayRate;
+        if (currentMaxSpeed < maxSpeed) currentMaxSpeed = maxSpeed;
         }
 
         if (Mathf.Abs(rb.linearVelocity.y) > 0.1f)
         {
-            if (Input.GetKey(KeyCode.Q))
-            {
-                rb.AddTorque(torqueForce * Time.deltaTime, ForceMode2D.Force);
-            }
-            if (Input.GetKey(KeyCode.E))
-            {
-                rb.AddTorque(-torqueForce * Time.deltaTime, ForceMode2D.Force);
-            }
+        if (Input.GetKey(KeyCode.Q))
+        {
+            rb.AddTorque(torqueForce * Time.deltaTime, ForceMode2D.Force);
         }
-    }
+        if (Input.GetKey(KeyCode.E))
+        {
+            rb.AddTorque(-torqueForce * Time.deltaTime, ForceMode2D.Force);
+        }
+        }
+}
+
 
     void FixedUpdate()
     {
