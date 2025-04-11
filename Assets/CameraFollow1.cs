@@ -23,18 +23,22 @@ public class CameraFollow : MonoBehaviour
     }
 
     void Update()
-    {
-        // Vertical offset for falling
-        float targetYOffset = rb.linearVelocity.y < 0 ? -fallOffset : 0f;
-        currentYOffset = Mathf.Lerp(currentYOffset, targetYOffset, smoothFallSpeed * Time.deltaTime);
+{
+    // Vertical offset for falling
+    float targetYOffset = rb.linearVelocity.y < 0 ? -fallOffset : 0f;
+    currentYOffset = Mathf.Lerp(currentYOffset, targetYOffset, smoothFallSpeed * Time.deltaTime);
 
-        // Follow position
-        Vector3 newPos = new Vector3(target.position.x + 3, target.position.y + 4 + currentYOffset, -10f);
-        transform.position = Vector3.Slerp(transform.position, newPos, FollowSpeed * Time.deltaTime);
+    // Dynamically adjust follow speed based on velocity
+    float speed = rb.linearVelocity.magnitude;
+    float dynamicFollowSpeed = Mathf.Clamp(speed, 1f, 10f); // clamp for stability
 
-        // Zoom out based on speed
-        float speed = rb.linearVelocity.magnitude;
-        float targetZoom = Mathf.Clamp(minZoom + speed, minZoom, maxZoom);
-        cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, targetZoom, zoomSpeed * Time.deltaTime);
-    }
+    // Follow position
+    Vector3 targetPos = new Vector3(target.position.x + 3, target.position.y + 4 + currentYOffset, -10f);
+    transform.position = Vector3.Lerp(transform.position, targetPos, dynamicFollowSpeed * Time.deltaTime);
+
+    // Zoom out based on speed
+    float targetZoom = Mathf.Clamp(minZoom + speed, minZoom, maxZoom);
+    cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, targetZoom, zoomSpeed * Time.deltaTime);
+}
+
 }
