@@ -25583,7 +25583,7 @@ MonoBehaviour:
   brakeForce: 3
   torqueForce: 50
   CastDistance: 0
-  boxSize: {x: 0, y: 0}
+  boxSize: {x: 1.7, y: 0.93}
   groundLayer:
     serializedVersion: 2
     m_Bits: 0

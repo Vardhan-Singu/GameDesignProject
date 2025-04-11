@@ -56,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log("Grounded: " + isGrounded);
         isGrounded = CheckIfGrounded();
 
-        if (isGrounded && (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)))
+        if ( (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)))
         {
         isBoosting = true;
         boostEndTime = Time.time + boostDuration;
