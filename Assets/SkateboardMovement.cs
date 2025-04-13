@@ -43,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
             return false;
         }
     }
-    private void onDrawGizmos()
+    private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(transform.position-transform.up * CastDistance, boxSize);
