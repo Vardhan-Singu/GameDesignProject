@@ -12,9 +12,13 @@ public class CameraFollow : MonoBehaviour
     public float maxZoom = 15f;
     public float zoomSpeed = 2f;
 
+    public float cameraAccelerationTime = 2f; // Time to reach full follow speed
+
     private Rigidbody2D rb;
     private float currentYOffset = 0f;
     private Camera cam;
+    private float followSpeedMultiplier = 0f;
+    private float accelerationTimer = 0f;
 
     void Start()
     {
@@ -23,22 +27,31 @@ public class CameraFollow : MonoBehaviour
     }
 
     void Update()
-{
-    // Vertical offset for falling
-    float targetYOffset = rb.linearVelocity.y < 0 ? -fallOffset : 0f;
-    currentYOffset = Mathf.Lerp(currentYOffset, targetYOffset, smoothFallSpeed * Time.deltaTime);
+    {
+        if (target == null || rb == null) return;
 
-    // Dynamically adjust follow speed based on velocity
-    float speed = rb.linearVelocity.magnitude;
-    float dynamicFollowSpeed = Mathf.Clamp(speed, 1f, 10f); // clamp for stability
+        // Smooth start using easing
+        if (followSpeedMultiplier < 1f)
+        {
+            accelerationTimer += Time.deltaTime;
+            float t = Mathf.Clamp01(accelerationTimer / cameraAccelerationTime);
+            followSpeedMultiplier = Mathf.SmoothStep(0f, 1f, t); // Eased transition from 0 to 1
+        }
 
-    // Follow position
-    Vector3 targetPos = new Vector3(target.position.x + 3, target.position.y + 4 + currentYOffset, -10f);
-    transform.position = Vector3.Lerp(transform.position, targetPos, dynamicFollowSpeed * Time.deltaTime);
+        // Vertical offset for falling
+        float targetYOffset = rb.linearVelocity.y < 0 ? -fallOffset : 0f;
+        currentYOffset = Mathf.Lerp(currentYOffset, targetYOffset, smoothFallSpeed * Time.deltaTime);
 
-    // Zoom out based on speed
-    float targetZoom = Mathf.Clamp(minZoom + speed, minZoom, maxZoom);
-    cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, targetZoom, zoomSpeed * Time.deltaTime);
-}
+        // Dynamic follow speed based on velocity and easing
+        float speed = rb.linearVelocity.magnitude;
+        float dynamicFollowSpeed = Mathf.Clamp(speed, 1f, 10f) * followSpeedMultiplier;
 
+        // Follow position
+        Vector3 targetPos = new Vector3(target.position.x + 3, target.position.y + 4 + currentYOffset, -10f);
+        transform.position = Vector3.Lerp(transform.position, targetPos, dynamicFollowSpeed * Time.deltaTime);
+
+        // Zoom out based on speed
+        float targetZoom = Mathf.Clamp(minZoom + speed, minZoom, maxZoom);
+        cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, targetZoom, zoomSpeed * Time.deltaTime);
+    }
 }

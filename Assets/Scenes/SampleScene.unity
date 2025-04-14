@@ -406,12 +406,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FollowSpeed: 5
-  target: {fileID: 1277233734}
+  target: {fileID: 876317778}
   fallOffset: 5
   smoothFallSpeed: 2
   minZoom: 5
   maxZoom: 15
   zoomSpeed: 2
+  cameraAccelerationTime: 2
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
