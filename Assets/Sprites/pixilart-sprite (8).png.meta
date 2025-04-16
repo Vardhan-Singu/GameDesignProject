@@ -69,7 +69,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 50
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -92,7 +92,7 @@ TextureImporter:
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 4
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
@@ -284,7 +284,14 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      pixilart-sprite (8)_0: 4017289307392591359
+      pixilart-sprite (8)_1: -306036368598228566
+      pixilart-sprite (8)_2: 6929362075400303438
+      pixilart-sprite (8)_3: 3712930936215088970
+      pixilart-sprite (8)_4: 5964528986143809329
+      pixilart-sprite (8)_5: 4443200078766664010
+      pixilart-sprite (8)_6: 6364126794820342783
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
