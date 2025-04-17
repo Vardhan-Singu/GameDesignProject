@@ -15,12 +15,19 @@ public class PlayerMovement : MonoBehaviour
     public float CastDistance;
     public Vector2 boxSize;
     public LayerMask groundLayer;
+    public bool isGrounded;
+    //OLLIES------------------
+    public float ollieForce = 8f;
+    public float ollieTiltForce = 5f; // <-- Added
+    public float ollieTiltDuration = 0.1f; // <-- Added
+    private float ollieTiltEndTime = 0f; // <-- Added
+    //-------------------
     private float move;
     private Rigidbody2D rb;
     private bool isBoosting = false;
     private float boostEndTime = 0f;
     private float currentMaxSpeed;
-    private bool isGrounded;
+    //public bool isGrounded;
 
     
 
@@ -51,7 +58,9 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
+        isGrounded = CheckIfGrounded();
+        
+        if (isGrounded && Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
         {
             isBoosting = true;
             boostEndTime = Time.time + boostDuration;
@@ -67,6 +76,13 @@ public class PlayerMovement : MonoBehaviour
         {
             currentMaxSpeed *= speedDecayRate;
             if (currentMaxSpeed < maxSpeed) currentMaxSpeed = maxSpeed;
+        }
+
+        if (isGrounded && Input.GetKeyDown(KeyCode.Space))
+        {
+            rb.AddForce(Vector2.up * ollieForce, ForceMode2D.Impulse);
+            rb.AddTorque(-ollieTiltForce, ForceMode2D.Impulse); // slight backward rotation
+            ollieTiltEndTime = Time.time + ollieTiltDuration;
         }
 
         if (Mathf.Abs(rb.linearVelocity.y) > 0.1f)
