@@ -49702,11 +49702,10 @@ GameObject:
   - component: {fileID: 1104304317}
   - component: {fileID: 1104304319}
   - component: {fileID: 1104304318}
-  - component: {fileID: 1104304321}
   - component: {fileID: 1104304320}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -49804,18 +49803,6 @@ SpriteRenderer:
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &1104304320
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1104304316}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26e2fa06608463b40917adc7512a8e7a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1104304321
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -51078,13 +51065,12 @@ MonoBehaviour:
   acceleration: 5
   maxSpeed: 10
   friction: 0.999
+  brakeForce: 3
+  torqueForce: 50
   boostAcceleration: 35
   boostMaxSpeed: 1000
   boostDuration: 1
-  naturalDrag: 0.02
   speedDecayRate: 0.99
-  brakeForce: 3
-  torqueForce: 50
   CastDistance: -0.5
   boxSize: {x: 2.31, y: 0.53}
   groundLayer:

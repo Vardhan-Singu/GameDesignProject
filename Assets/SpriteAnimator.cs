@@ -4,24 +4,24 @@ using UnityEngine;
 
 public class SpriteAnimator : MonoBehaviour
 {
-    Animator animator;
-    Rigidbody2D rb;
+    private Animator animator;
+    private PlayerMovement playerMovement;
 
-    // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody2D>();
+        playerMovement = GetComponent<PlayerMovement>(); // Make sure this GameObject has PlayerMovement attached
+
+        // OR if PlayerMovement is on a different GameObject:
+        // playerMovement = GameObject.Find("Player").GetComponent<PlayerMovement>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        float speed = rb.linearVelocity.magnitude;
+        float speed = playerMovement.GetSpeed();
 
         if (speed > 0.1f) // moving
         {
-            // Optional: use direction or inputs to pick animation states
             if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.LeftShift))
                 animator.SetInteger("AnimState", 1);
             else if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.LeftShift))
@@ -31,7 +31,7 @@ public class SpriteAnimator : MonoBehaviour
             else if (Input.GetKey(KeyCode.W))
                 animator.SetInteger("AnimState", 2);
         }
-        else // standing still
+        else
         {
             animator.SetInteger("AnimState", 0); // idle
         }
