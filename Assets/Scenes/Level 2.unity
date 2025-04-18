@@ -51065,17 +51065,22 @@ MonoBehaviour:
   acceleration: 5
   maxSpeed: 10
   friction: 0.999
-  brakeForce: 3
-  torqueForce: 50
   boostAcceleration: 35
   boostMaxSpeed: 1000
   boostDuration: 1
+  naturalDrag: 0.02
   speedDecayRate: 0.99
+  brakeForce: 3
+  torqueForce: 50
   CastDistance: -0.5
   boxSize: {x: 2.31, y: 0.53}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  isGrounded: 0
+  ollieForce: 10
+  ollieTiltForce: -0.3
+  ollieTiltDuration: 0.1
 --- !u!4 &1144516005
 Transform:
   m_ObjectHideFlags: 0
