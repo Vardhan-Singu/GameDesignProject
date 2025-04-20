@@ -18,6 +18,10 @@ public class PlayerMovement : MonoBehaviour
     public bool isGrounded;
 
     public float ollieForce = 8f;
+    public float maxOllieForce = 12f; // <-- Added
+    public float maxOllieChargeTime = 0.5f; // <-- Added
+    private float ollieChargeStartTime; // <-- Added
+    private bool isChargingOllie; // <-- Added
     public float ollieTiltForce = 5f; // <-- Added
     public float ollieTiltDuration = 0.1f; // <-- Added
     private float ollieTiltEndTime = 0f; // <-- Added
@@ -81,11 +85,25 @@ public class PlayerMovement : MonoBehaviour
             if (currentMaxSpeed < maxSpeed) currentMaxSpeed = maxSpeed;
         }
 
+        // Start charging ollie
         if (isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
-            rb.AddForce(Vector2.up * ollieForce, ForceMode2D.Impulse);
-            rb.AddTorque(-ollieTiltForce, ForceMode2D.Impulse); // slight backward rotation
+            isChargingOllie = true;
+            ollieChargeStartTime = Time.time;
+        }
+
+        // Release ollie
+        if (isGrounded && isChargingOllie && Input.GetKeyUp(KeyCode.Space))
+        {
+            float chargeTime = Mathf.Clamp(Time.time - ollieChargeStartTime, 0, maxOllieChargeTime);
+            float chargePercent = chargeTime / maxOllieChargeTime;
+            float finalOllieForce = Mathf.Lerp(ollieForce, maxOllieForce, chargePercent);
+
+            rb.AddForce(Vector2.up * finalOllieForce, ForceMode2D.Impulse);
+            rb.AddTorque(-ollieTiltForce, ForceMode2D.Impulse);
             ollieTiltEndTime = Time.time + ollieTiltDuration;
+
+            isChargingOllie = false;
         }
 
         if (Mathf.Abs(rb.linearVelocity.y) > 0.1f)

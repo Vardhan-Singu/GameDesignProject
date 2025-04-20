@@ -51079,6 +51079,8 @@ MonoBehaviour:
     m_Bits: 64
   isGrounded: 0
   ollieForce: 10
+  maxOllieForce: 20
+  maxOllieChargeTime: 0.5
   ollieTiltForce: -0.3
   ollieTiltDuration: 0.1
 --- !u!4 &1144516005
