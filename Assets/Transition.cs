@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpriteAnimator : MonoBehaviour
+public class Transition : MonoBehaviour
 {
     Animator animator;
     bool isSkateboarding = false;
