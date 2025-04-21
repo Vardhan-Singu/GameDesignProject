@@ -68,6 +68,14 @@ public class PlayerMovement : MonoBehaviour
 
         if (!isOnSkateboard) return;
 
+        if (Input.GetKeyDown(KeyCode.LeftAlt) || Input.GetKeyDown(KeyCode.RightAlt))
+        {
+        if (Time.timeScale == 1f)
+            Time.timeScale = 0.3f; // Slow motion
+        else
+            Time.timeScale = 1f;   // Normal speed
+        }
+
         if (isGrounded && (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)))
         {
             isBoosting = true;
