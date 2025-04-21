@@ -128,20 +128,21 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!isOnSkateboard) return;
+    if (!isOnSkateboard || !isGrounded) return; // Only move if on skateboard *and* grounded
 
-        move = Input.GetAxis("Horizontal");
-        float currentAcceleration = isBoosting ? boostAcceleration : acceleration;
+    move = Input.GetAxis("Horizontal");
+    float currentAcceleration = isBoosting ? boostAcceleration : acceleration;
 
-        if (move != 0)
-        {
-            rb.AddForce(new Vector2(move * currentAcceleration, 0), ForceMode2D.Force);
-            rb.linearVelocity = new Vector2(Mathf.Clamp(rb.linearVelocity.x, -currentMaxSpeed, currentMaxSpeed), rb.linearVelocity.y);
-        }
-
-        if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
-        {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x * (1f - brakeForce * Time.fixedDeltaTime), rb.linearVelocity.y);
-        }
+    if (move != 0)
+    {
+        rb.AddForce(new Vector2(move * currentAcceleration, 0), ForceMode2D.Force);
+        rb.linearVelocity = new Vector2(Mathf.Clamp(rb.linearVelocity.x, -currentMaxSpeed, currentMaxSpeed), rb.linearVelocity.y);
     }
+
+    if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
+    {
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x * (1f - brakeForce * Time.fixedDeltaTime), rb.linearVelocity.y);
+    }
+    }
+
 }
