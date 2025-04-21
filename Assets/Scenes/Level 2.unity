@@ -49705,7 +49705,7 @@ GameObject:
   - component: {fileID: 1104304320}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -49814,6 +49814,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f76826e1a02716945a4e964efa368bfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 1104304318}
+  playerMovement: {fileID: 1144516004}
 --- !u!1 &1107704074
 GameObject:
   m_ObjectHideFlags: 0
@@ -51045,7 +51047,7 @@ GameObject:
   - component: {fileID: 1144516004}
   m_Layer: 0
   m_Name: Skateboard But Better
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51078,6 +51080,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   isGrounded: 0
+  isOnSkateboard: 1
   ollieForce: 10
   maxOllieForce: 20
   maxOllieChargeTime: 0.5

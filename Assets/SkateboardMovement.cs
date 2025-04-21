@@ -16,23 +16,22 @@ public class PlayerMovement : MonoBehaviour
     public Vector2 boxSize;
     public LayerMask groundLayer;
     public bool isGrounded;
+    public bool isOnSkateboard = true;
 
     public float ollieForce = 8f;
-    public float maxOllieForce = 12f; // <-- Added
-    public float maxOllieChargeTime = 0.5f; // <-- Added
-    private float ollieChargeStartTime; // <-- Added
-    private bool isChargingOllie; // <-- Added
-    public float ollieTiltForce = 5f; // <-- Added
-    public float ollieTiltDuration = 0.1f; // <-- Added
-    private float ollieTiltEndTime = 0f; // <-- Added
+    public float maxOllieForce = 12f;
+    public float maxOllieChargeTime = 0.5f;
+    private float ollieChargeStartTime;
+    private bool isChargingOllie;
+    public float ollieTiltForce = 5f;
+    public float ollieTiltDuration = 0.1f;
+    private float ollieTiltEndTime = 0f;
 
     private float move;
     private Rigidbody2D rb;
     private bool isBoosting = false;
     private float boostEndTime = 0f;
     private float currentMaxSpeed;
-
-    
 
     void Start()
     {
@@ -41,23 +40,18 @@ public class PlayerMovement : MonoBehaviour
         rb.freezeRotation = false;
         currentMaxSpeed = maxSpeed;
     }
-    
+
     public bool CheckIfGrounded()
     {
-        if (Physics2D.BoxCast(transform.position, boxSize, 0, -transform.up, CastDistance, groundLayer))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return Physics2D.BoxCast(transform.position, boxSize, 0, -transform.up, CastDistance, groundLayer);
     }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(transform.position-transform.up * CastDistance, boxSize);
+        Gizmos.DrawWireCube(transform.position - transform.up * CastDistance, boxSize);
     }
+
     public float GetSpeed()
     {
         return rb.linearVelocity.magnitude;
@@ -65,9 +59,16 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            isOnSkateboard = !isOnSkateboard;
+        }
+
         isGrounded = CheckIfGrounded();
 
-        if (isGrounded && Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
+        if (!isOnSkateboard) return;
+
+        if (isGrounded && (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)))
         {
             isBoosting = true;
             boostEndTime = Time.time + boostDuration;
@@ -85,14 +86,12 @@ public class PlayerMovement : MonoBehaviour
             if (currentMaxSpeed < maxSpeed) currentMaxSpeed = maxSpeed;
         }
 
-        // Start charging ollie
         if (isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
             isChargingOllie = true;
             ollieChargeStartTime = Time.time;
         }
 
-        // Release ollie
         if (isGrounded && isChargingOllie && Input.GetKeyUp(KeyCode.Space))
         {
             float chargeTime = Mathf.Clamp(Time.time - ollieChargeStartTime, 0, maxOllieChargeTime);
@@ -121,13 +120,15 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (!isOnSkateboard) return;
+
         move = Input.GetAxis("Horizontal");
         float currentAcceleration = isBoosting ? boostAcceleration : acceleration;
 
         if (move != 0)
         {
             rb.AddForce(new Vector2(move * currentAcceleration, 0), ForceMode2D.Force);
-            //rb.linearVelocity = new Vector2(Mathf.Clamp(rb.linearVelocity.x, -currentMaxSpeed, currentMaxSpeed), rb.linearVelocity.y);
+            rb.linearVelocity = new Vector2(Mathf.Clamp(rb.linearVelocity.x, -currentMaxSpeed, currentMaxSpeed), rb.linearVelocity.y);
         }
 
         if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
@@ -135,5 +136,4 @@ public class PlayerMovement : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x * (1f - brakeForce * Time.fixedDeltaTime), rb.linearVelocity.y);
         }
     }
-
 }
