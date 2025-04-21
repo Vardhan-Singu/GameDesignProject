@@ -124,6 +124,18 @@ public class PlayerMovement : MonoBehaviour
                 rb.AddTorque(-torqueForce * Time.deltaTime, ForceMode2D.Force);
             }
         }
+        // Toggle skateboard on/off with 'Tab' key
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            isOnSkateboard = !isOnSkateboard;
+            Debug.Log("Skateboard active: " + isOnSkateboard);
+        }
+
+        // Only allow movement when on skateboard
+        if (!isOnSkateboard)
+            return;
+
+        // ... existing movement/boost/jump code ...
     }
 
     void FixedUpdate()

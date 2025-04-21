@@ -55,8 +55,6 @@ public class SpriteAnimator : MonoBehaviour
                 animator.SetInteger("AnimState", 5); // skate right
             else if (Input.GetKey(KeyCode.A))
                 animator.SetInteger("AnimState", 6); // skate left
-            else if (Input.GetKey(KeyCode.W))
-                animator.SetInteger("AnimState", 2); // up movement
         }
         else
         {

@@ -4,30 +4,36 @@ using UnityEngine;
 
 public class Transition : MonoBehaviour
 {
-    Animator animator;
-    bool isSkateboarding = false;
+    public Animator animator; // Assign in Inspector or find automatically
+    private bool isSkateboarding = false;
 
     void Start()
     {
-        animator = GetComponent<Animator>();
+        if (animator == null)
+            animator = GetComponent<Animator>();
     }
 
     void Update()
     {
-        // Toggle skateboarding on/off with Spacebar
+        // Toggle skateboarding mode
         if (Input.GetKeyDown(KeyCode.Space))
         {
             isSkateboarding = !isSkateboarding;
         }
 
-        // Skateboarding animations
-        if (isSkateboarding)
+        if (animator == null)
         {
-            animator.SetInteger("AnimState", 5); // Skateboard animation state
-            return; // Don't check other movement
+            Debug.LogWarning("Animator not assigned!");
+            return;
         }
 
-        // Normal movement animations
+        if (isSkateboarding)
+        {
+            animator.SetInteger("AnimState", 5); // Skateboarding animation
+            return;
+        }
+
+        // Handle normal movement animation
         bool pressingD = Input.GetKey(KeyCode.D);
         bool pressingA = Input.GetKey(KeyCode.A);
         bool pressingW = Input.GetKey(KeyCode.W);
