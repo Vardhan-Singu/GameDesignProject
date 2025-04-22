@@ -59,6 +59,16 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (isGrounded && Input.GetKeyDown(KeyCode.R))
+        {
+            float zRotation = transform.rotation.eulerAngles.z;
+            if (zRotation > 90f && zRotation < 270f)
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+                rb.angularVelocity = 0f; // Reset spin
+            }
+        }
+        
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             isOnSkateboard = !isOnSkateboard;
