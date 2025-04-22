@@ -53131,8 +53131,8 @@ MonoBehaviour:
   speedDecayRate: 0.99
   brakeForce: 3
   torqueForce: 50
-  CastDistance: -0.83
-  boxSize: {x: 2.31, y: 0.53}
+  CastDistance: -0.95
+  boxSize: {x: 2.31, y: 1.04}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
