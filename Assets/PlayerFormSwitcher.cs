@@ -26,8 +26,8 @@ public class PlayerFormSwitcher : MonoBehaviour
     {
         if (skate)
         {
-            // Match skateForm position to walkForm before switching
-            skateForm.transform.position = walkForm.transform.position;
+            if (walkForm != null && skateForm != null)
+                skateForm.transform.position = walkForm.transform.position;
 
             walkForm.SetActive(false);
             skateForm.SetActive(true);
@@ -37,16 +37,15 @@ public class PlayerFormSwitcher : MonoBehaviour
         }
         else
         {
-            // Match walkForm position to skateForm before switching
-            walkForm.transform.position = skateForm.transform.position;
+            if (skateForm != null)
+                walkForm.transform.position = skateForm.transform.position;
 
-            skateForm.SetActive(false);
+            if (skateForm != null) skateForm.SetActive(false);
             walkForm.SetActive(true);
 
             EnableMovement(walkForm, true);
-            EnableMovement(skateForm, false);
+            if (skateForm != null) EnableMovement(skateForm, false);
 
-            // Start coroutine to remove the skateboard
             StartCoroutine(RemoveSkateboard());
         }
     }
@@ -62,12 +61,12 @@ public class PlayerFormSwitcher : MonoBehaviour
 
     IEnumerator RemoveSkateboard()
     {
-        // Optional: Play VFX or animation before removal
         yield return new WaitForSeconds(0.5f);
 
         if (skateForm != null)
         {
             Destroy(skateForm);
+            skateForm = null;
         }
     }
 }

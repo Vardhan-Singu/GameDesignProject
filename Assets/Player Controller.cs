@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
         {
             // Apply movement velocity in the y direction
             r2d.linearVelocity = new Vector2(r2d.linearVelocity.x, jumpHeight);
-            this.GetComponent<AudioSource>().Play();
+            // this.GetComponent<AudioSource>().Play();
         }
 
     }
