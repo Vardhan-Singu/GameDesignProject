@@ -68,11 +68,12 @@ public class PlayerMovement : MonoBehaviour
                 rb.angularVelocity = 0f; // Reset spin
             }
         }
-        
+        /*
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             isOnSkateboard = !isOnSkateboard;
         }
+        */
 
         isGrounded = CheckIfGrounded();
 

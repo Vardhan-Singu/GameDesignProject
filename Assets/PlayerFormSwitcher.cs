@@ -1,10 +1,10 @@
 using UnityEngine;
-using System.Collections;
 
 public class PlayerFormSwitcher : MonoBehaviour
 {
     public GameObject walkForm;
     public GameObject skateForm;
+    public CameraFollow cameraFollow; // <-- Add this
 
     private bool isSkating = false;
 
@@ -15,7 +15,7 @@ public class PlayerFormSwitcher : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
             isSkating = !isSkating;
             SetForm(isSkating);
@@ -24,49 +24,41 @@ public class PlayerFormSwitcher : MonoBehaviour
 
     void SetForm(bool skate)
     {
+        if (walkForm == null || skateForm == null || cameraFollow == null) return;
+
+        // Sync positions
         if (skate)
         {
-            if (walkForm != null && skateForm != null)
-                skateForm.transform.position = walkForm.transform.position;
-
-            walkForm.SetActive(false);
-            skateForm.SetActive(true);
-
-            EnableMovement(skateForm, true);
-            EnableMovement(walkForm, false);
+            skateForm.transform.position = walkForm.transform.position;
+            cameraFollow.SetTarget(skateForm.transform);  // Switch camera target
         }
         else
         {
-            if (skateForm != null)
-                walkForm.transform.position = skateForm.transform.position;
-
-            if (skateForm != null) skateForm.SetActive(false);
-            walkForm.SetActive(true);
-
-            EnableMovement(walkForm, true);
-            if (skateForm != null) EnableMovement(skateForm, false);
-
-            StartCoroutine(RemoveSkateboard());
+            walkForm.transform.position = skateForm.transform.position;
+            cameraFollow.SetTarget(walkForm.transform); // Switch camera target
         }
+
+        walkForm.SetActive(!skate);
+        skateForm.SetActive(skate);
+
+        EnableMovement(walkForm, !skate);
+        EnableMovement(skateForm, skate);
     }
 
     void EnableMovement(GameObject obj, bool enable)
     {
-        var movement = obj.GetComponent<PlayerMovement>();
-        if (movement != null)
-        {
-            movement.enabled = enable;
-        }
-    }
+        if (obj == null) return;
 
-    IEnumerator RemoveSkateboard()
-    {
-        yield return new WaitForSeconds(0.5f);
+        var skateMovement = obj.GetComponent<PlayerMovement>();
+        if (skateMovement != null)
+            skateMovement.enabled = enable;
 
-        if (skateForm != null)
-        {
-            Destroy(skateForm);
-            skateForm = null;
-        }
+        var walkMovement = obj.GetComponent<PlayerController>();
+        if (walkMovement != null)
+            walkMovement.enabled = enable;
+
+        var rb = obj.GetComponent<Rigidbody2D>();
+        if (rb != null)
+            rb.simulated = enable;
     }
 }

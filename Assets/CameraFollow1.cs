@@ -12,7 +12,7 @@ public class CameraFollow : MonoBehaviour
     public float maxZoom = 15f;
     public float zoomSpeed = 2f;
 
-    public float cameraAccelerationTime = 2f; // Time to reach full follow speed
+    public float cameraAccelerationTime = 2f;
 
     private Rigidbody2D rb;
     private float currentYOffset = 0f;
@@ -22,36 +22,42 @@ public class CameraFollow : MonoBehaviour
 
     void Start()
     {
-        rb = target.GetComponent<Rigidbody2D>();
         cam = GetComponent<Camera>();
+        SetTarget(target); // Initial target setup
     }
 
     void Update()
     {
         if (target == null || rb == null) return;
 
-        // Smooth start using easing
         if (followSpeedMultiplier < 1f)
         {
             accelerationTimer += Time.deltaTime;
             float t = Mathf.Clamp01(accelerationTimer / cameraAccelerationTime);
-            followSpeedMultiplier = Mathf.SmoothStep(0f, 1f, t); // Eased transition from 0 to 1
+            followSpeedMultiplier = Mathf.SmoothStep(0f, 1f, t);
         }
 
-        // Vertical offset for falling
         float targetYOffset = rb.linearVelocity.y < 0 ? -fallOffset : 0f;
         currentYOffset = Mathf.Lerp(currentYOffset, targetYOffset, smoothFallSpeed * Time.deltaTime);
 
-        // Dynamic follow speed based on velocity and easing
         float speed = rb.linearVelocity.magnitude;
         float dynamicFollowSpeed = Mathf.Clamp(speed, 1f, 10f) * followSpeedMultiplier;
 
-        // Follow position
         Vector3 targetPos = new Vector3(target.position.x + 3, target.position.y + 4 + currentYOffset, -10f);
         transform.position = Vector3.Lerp(transform.position, targetPos, dynamicFollowSpeed * Time.deltaTime);
 
-        // Zoom out based on speed
         float targetZoom = Mathf.Clamp(minZoom + speed, minZoom, maxZoom);
         cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, targetZoom, zoomSpeed * Time.deltaTime);
+    }
+
+    public void SetTarget(Transform newTarget)
+    {
+        target = newTarget;
+        if (target != null)
+        {
+            rb = target.GetComponent<Rigidbody2D>();
+            accelerationTimer = 0f; // Restart follow smoothing
+            followSpeedMultiplier = 0f;
+        }
     }
 }
