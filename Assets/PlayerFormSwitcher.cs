@@ -4,7 +4,13 @@ public class PlayerFormSwitcher : MonoBehaviour
 {
     public GameObject walkForm;
     public GameObject skateForm;
-    public CameraFollow cameraFollow; // <-- Add this
+    public CameraFollow cameraFollow;
+
+    public Animator walkAnimHolderAnimator;  // Animator for the walking animation
+    public Animator skateAnimHolderAnimator; // Animator for the skating animation
+
+    public string walkSwitchAnim = "SwitchToWalk";  // Name of the walk switch animation
+    public string skateSwitchAnim = "SwitchToSkate"; // Name of the skate switch animation
 
     private bool isSkating = false;
 
@@ -26,11 +32,21 @@ public class PlayerFormSwitcher : MonoBehaviour
     {
         if (walkForm == null || skateForm == null || cameraFollow == null) return;
 
+        // Play the switch animation for the appropriate form
+        if (skate && skateAnimHolderAnimator != null)
+        {
+            skateAnimHolderAnimator.SetTrigger("SwitchAnim");
+        }
+        else if (!skate && walkAnimHolderAnimator != null)
+        {
+            walkAnimHolderAnimator.SetTrigger("SwitchAnim");
+        }
+
         // Sync positions
         if (skate)
         {
             skateForm.transform.position = walkForm.transform.position;
-            cameraFollow.SetTarget(skateForm.transform);  // Switch camera target
+            cameraFollow.SetTarget(skateForm.transform); // Switch camera target
         }
         else
         {
