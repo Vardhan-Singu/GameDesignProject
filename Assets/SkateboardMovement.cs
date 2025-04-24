@@ -59,10 +59,21 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (isGrounded && Input.GetKeyDown(KeyCode.R))
+        {
+            float zRotation = transform.rotation.eulerAngles.z;
+            if (zRotation > 90f && zRotation < 270f)
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+                rb.angularVelocity = 0f; // Reset spin
+            }
+        }
+        /*
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             isOnSkateboard = !isOnSkateboard;
         }
+        */
 
         isGrounded = CheckIfGrounded();
 
@@ -124,24 +135,37 @@ public class PlayerMovement : MonoBehaviour
                 rb.AddTorque(-torqueForce * Time.deltaTime, ForceMode2D.Force);
             }
         }
+        // Toggle skateboard on/off with 'Tab' key
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            isOnSkateboard = !isOnSkateboard;
+            Debug.Log("Skateboard active: " + isOnSkateboard);
+        }
+
+        // Only allow movement when on skateboard
+        if (!isOnSkateboard)
+            return;
+
+        // ... existing movement/boost/jump code ...
     }
 
     void FixedUpdate()
     {
-        if (!isOnSkateboard) return;
+    if (!isOnSkateboard || !isGrounded) return; // Only move if on skateboard *and* grounded
 
-        move = Input.GetAxis("Horizontal");
-        float currentAcceleration = isBoosting ? boostAcceleration : acceleration;
+    move = Input.GetAxis("Horizontal");
+    float currentAcceleration = isBoosting ? boostAcceleration : acceleration;
 
-        if (move != 0)
-        {
-            rb.AddForce(new Vector2(move * currentAcceleration, 0), ForceMode2D.Force);
-            rb.linearVelocity = new Vector2(Mathf.Clamp(rb.linearVelocity.x, -currentMaxSpeed, currentMaxSpeed), rb.linearVelocity.y);
-        }
-
-        if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
-        {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x * (1f - brakeForce * Time.fixedDeltaTime), rb.linearVelocity.y);
-        }
+    if (move != 0)
+    {
+        rb.AddForce(new Vector2(move * currentAcceleration, 0), ForceMode2D.Force);
+        rb.linearVelocity = new Vector2(Mathf.Clamp(rb.linearVelocity.x, -currentMaxSpeed, currentMaxSpeed), rb.linearVelocity.y);
     }
+
+    if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
+    {
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x * (1f - brakeForce * Time.fixedDeltaTime), rb.linearVelocity.y);
+    }
+    }
+
 }

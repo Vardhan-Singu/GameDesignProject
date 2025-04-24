@@ -47,6 +47,7 @@ public class SpriteAnimator : MonoBehaviour
         }
         else if (speed > 0.07f)
         {
+            float yRotation = transform.rotation.eulerAngles.y;
             if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.LeftShift))
                 animator.SetInteger("AnimState", 1); // boost right
             else if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.LeftShift))
@@ -55,8 +56,20 @@ public class SpriteAnimator : MonoBehaviour
                 animator.SetInteger("AnimState", 5); // skate right
             else if (Input.GetKey(KeyCode.A))
                 animator.SetInteger("AnimState", 6); // skate left
-            else if (Input.GetKey(KeyCode.W))
-                animator.SetInteger("AnimState", 2); // up movement
+            else if (Input.GetKeyDown(KeyCode.S))
+                {
+                if (yRotation == 0f)
+                    {
+                    animator.SetInteger("AnimState", 8); // Power slide right
+                    }
+                }
+            else if (Input.GetKeyDown(KeyCode.S))
+                {
+                if (yRotation == 180f)
+                    {
+                    animator.SetInteger("AnimState", 9); // Power slide left
+                    }
+                }
         }
         else
         {
