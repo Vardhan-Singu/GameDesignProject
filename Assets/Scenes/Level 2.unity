@@ -15337,7 +15337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4ab3e203033d214683cab4218af848c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkForm: {fileID: 1611855720}
+  walkForm: {fileID: 126302093}
   skateForm: {fileID: 1144516003}
   cameraFollow: {fileID: 605312154}
 --- !u!1 &580870617
@@ -16102,7 +16102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FollowSpeed: 2
-  target: {fileID: 126302094}
+  target: {fileID: 0}
   fallOffset: 5
   smoothFallSpeed: 2
   minZoom: 5

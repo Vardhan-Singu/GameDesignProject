@@ -34,7 +34,8 @@ public class PlayerFormSwitcher : MonoBehaviour
         }
         else
         {
-            walkForm.transform.position = skateForm.transform.position;
+            Vector3 offset = Vector3.up * 5f; // slight upward nudge
+            walkForm.transform.position = skateForm.transform.position + offset;
             cameraFollow.SetTarget(walkForm.transform); // Switch camera target
         }
 
