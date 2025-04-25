@@ -33,12 +33,6 @@ public class SpriteAnimator : MonoBehaviour
             return;
         }
 
-        if (!playerMovement.isOnSkateboard)
-        {
-            animator.SetInteger("AnimState", 0);
-            return;
-        }
-
         float speed = playerMovement.GetSpeed();
 
         if (!playerMovement.isGrounded)
