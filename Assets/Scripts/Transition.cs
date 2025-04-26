@@ -4,90 +4,80 @@ using UnityEngine;
 
 public class Transition : MonoBehaviour
 {
-    public Animator animator;
-    public Movement Movement;
-    private bool isSkateboarding = false;
-    private Rigidbody2D rb;
+    public Animator animator; // Drag in inspector if needed
+    public PlayerMovement playerMovement; // Drag the player object with PlayerMovement here
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        
-        // If not found on this object, try to find it in parent
-        if (rb == null)
-        {
-            rb = GetComponentInParent<Rigidbody2D>();
-        }
-
-        // If still not found, log and disable
-        if (rb == null)
-        {
-            Debug.LogError("Rigidbody2D not found on " + gameObject.name + " or its parents. Please assign it.");
-            enabled = false;
-        }
-        
+        // Fallback if animator wasn't assigned in Inspector
         if (animator == null)
             animator = GetComponent<Animator>();
 
-        if (Movement == null)
+        // Try get PlayerMovement from same object
+        playerMovement = GetComponent<PlayerMovement>();
+
+        // If still null, try find it elsewhere
+        if (playerMovement == null)
         {
-            Movement = GetComponent<Movement>();
-            if (Movement == null)
-            {
-                GameObject player = GameObject.FindWithTag("Player");
-                if (player != null)
-                    Movement = player.GetComponent<Movement>();
-            }
+            GameObject player = GameObject.FindWithTag("Player"); // <-- Make sure your player has this tag
+            if (player != null)
+                playerMovement = player.GetComponent<PlayerMovement>();
         }
     }
 
     void Update()
     {
-        // Stop if animator or Movement is still not found
-        if (animator == null || Movement == null)
+        if (animator == null || playerMovement == null)
         {
-            Debug.LogWarning("Animator or Movement component is missing on: " + gameObject.name);
+            Debug.LogWarning("Animator or PlayerMovement is not assigned!");
             return;
         }
 
-        // Toggle skateboarding mode
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (!playerMovement.isOnSkateboard)
         {
-            isSkateboarding = !isSkateboarding;
-            Debug.Log("Skateboarding mode: " + isSkateboarding);
+            animator.SetInteger("AnimState", 0);
+            return;
         }
 
-        // Get speed from Movement
-        float speed = Movement.GetSpeed();
-        Debug.Log("Current Speed: " + speed); // Debug the speed value
+        float speed = playerMovement.GetSpeed();
 
-        // Determine animation state based on speed
-        if (speed > 0.07f)  // Threshold for walking/running
+        if (!playerMovement.isGrounded)
         {
-            bool pressingD = Input.GetKey(KeyCode.D);
-            bool pressingA = Input.GetKey(KeyCode.A);
-            bool pressingShift = Input.GetKey(KeyCode.LeftShift);
-
-            if (pressingD && pressingShift)
-            {
-                animator.SetInteger("AnimState", 11); // Run Right
-            }
-            else if (pressingA && pressingShift)
-            {
-                animator.SetInteger("AnimState", 12); // Run Left
-            }
-            else if (!Movement.isGrounded && pressingD)
-            {
-                animator.SetInteger("AnimState", 13); // Falling right
-            }
-            else if (!Movement.isGrounded && pressingA)
-            {
-                animator.SetInteger("AnimState", 14); // Falling left
-            }
+            animator.SetInteger("AnimState", 7); // air
+        }
+        else if (speed > 0.07f)
+        {
+            float yRotation = transform.rotation.eulerAngles.y;
+            if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.LeftShift))
+                animator.SetInteger("AnimState", 1); // boost right
+            else if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.LeftShift))
+                animator.SetInteger("AnimState", 3); // boost left
+            else if (Input.GetKey(KeyCode.D))
+                animator.SetInteger("AnimState", 5); // skate right
+            else if (Input.GetKey(KeyCode.A))
+                animator.SetInteger("AnimState", 6); // skate left
+            if (!playerMovement.isGrounded && Input.GetKey(KeyCode.D))
+                animator.SetInteger("AnimState", 10); // fall right
+            if (!playerMovement.isGrounded && Input.GetKey(KeyCode.A))
+                animator.SetInteger("AnimState", 1); // fall left
+            else if (Input.GetKeyDown(KeyCode.S))
+                {
+                if (yRotation == 0f)
+                    {
+                    animator.SetInteger("AnimState", 8); // Power slide right
+                    }
+                }
+            else if (Input.GetKeyDown(KeyCode.S))
+                {
+                if (yRotation == 180f)
+                    {
+                    animator.SetInteger("AnimState", 9); // Power slide left
+                    }
+                }
         }
         else
         {
-            animator.SetInteger("AnimState", 10); // Idle
+            animator.SetInteger("AnimState", 0); // idle
         }
     }
 }
