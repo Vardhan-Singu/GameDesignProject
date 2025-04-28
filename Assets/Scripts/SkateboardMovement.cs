@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public AudioClip rollingSound;
+    public AudioClip ollieSound;
+    private AudioSource audioSource;
     public float acceleration = 10f;
     public float maxSpeed = 5f;
     public float friction = 0.999f;
@@ -35,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody2D>();
         rb.linearDamping = 0;
         rb.freezeRotation = false;
@@ -119,6 +123,7 @@ public class PlayerMovement : MonoBehaviour
 
             rb.AddForce(Vector2.up * finalOllieForce, ForceMode2D.Impulse);
             rb.AddTorque(-ollieTiltForce, ForceMode2D.Impulse);
+            audioSource.PlayOneShot(ollieSound);
             ollieTiltEndTime = Time.time + ollieTiltDuration;
 
             isChargingOllie = false;
@@ -160,6 +165,22 @@ public class PlayerMovement : MonoBehaviour
     {
         rb.AddForce(new Vector2(move * currentAcceleration, 0), ForceMode2D.Force);
         rb.linearVelocity = new Vector2(Mathf.Clamp(rb.linearVelocity.x, -currentMaxSpeed, currentMaxSpeed), rb.linearVelocity.y);
+
+        // Play rolling sound if not already playing
+        if (!audioSource.isPlaying)
+        {
+            audioSource.clip = rollingSound;
+            audioSource.loop = true;
+            audioSource.Play();
+        }
+    }
+    else
+    {
+        // Stop rolling sound if not moving
+        if (audioSource.isPlaying && audioSource.clip == rollingSound)
+        {
+            audioSource.Stop();
+        }
     }
 
     if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
@@ -167,5 +188,6 @@ public class PlayerMovement : MonoBehaviour
         rb.linearVelocity = new Vector2(rb.linearVelocity.x * (1f - brakeForce * Time.fixedDeltaTime), rb.linearVelocity.y);
     }
     }
+
 
 }
