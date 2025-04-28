@@ -4,76 +4,51 @@ using UnityEngine;
 
 public class Transition : MonoBehaviour
 {
-    public Animator animator; // Drag in inspector if needed
-    public PlayerMovement playerMovement; // Drag the player object with PlayerMovement here
+    public Animator animator;
+    public PlayerController playerController; // <-- Change this
 
     void Start()
     {
-        // Fallback if animator wasn't assigned in Inspector
         if (animator == null)
             animator = GetComponent<Animator>();
 
-        // Try get PlayerMovement from same object
-        playerMovement = GetComponent<PlayerMovement>();
+        // Try to get PlayerController
+        playerController = GetComponent<PlayerController>();
 
-        // If still null, try find it elsewhere
-        if (playerMovement == null)
+        if (playerController == null)
         {
-            GameObject player = GameObject.FindWithTag("Player"); // <-- Make sure your player has this tag
+            GameObject player = GameObject.FindWithTag("Player");
             if (player != null)
-                playerMovement = player.GetComponent<PlayerMovement>();
+                playerController = player.GetComponent<PlayerController>();
         }
     }
 
     void Update()
     {
-        if (animator == null || playerMovement == null)
+        if (animator == null || playerController == null)
         {
-            Debug.LogWarning("Animator or PlayerMovement is not assigned!");
+            Debug.LogWarning("Animator or PlayerController is not assigned!");
             return;
         }
 
-        if (!playerMovement.isOnSkateboard)
+        // Check falling first
+        if (!playerController.CheckIfGrounded())
         {
-            animator.SetInteger("AnimState", 0);
-            return;
-        }
-
-        float speed = playerMovement.GetSpeed();
-
-        if (!playerMovement.isGrounded)
-        {
-            animator.SetInteger("AnimState", 7); // air
-        }
-        else if (speed > 0.07f)
-        {
-            float yRotation = transform.rotation.eulerAngles.y;
-            if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.LeftShift))
-                animator.SetInteger("AnimState", 1); // boost right
-            else if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.LeftShift))
-                animator.SetInteger("AnimState", 3); // boost left
-            else if (Input.GetKey(KeyCode.D))
-                animator.SetInteger("AnimState", 5); // skate right
+            if (Input.GetKey(KeyCode.D))
+                animator.SetInteger("AnimState", 4); // fall right
             else if (Input.GetKey(KeyCode.A))
-                animator.SetInteger("AnimState", 6); // skate left
-            if (!playerMovement.isGrounded && Input.GetKey(KeyCode.D))
-                animator.SetInteger("AnimState", 10); // fall right
-            if (!playerMovement.isGrounded && Input.GetKey(KeyCode.A))
-                animator.SetInteger("AnimState", 1); // fall left
-            else if (Input.GetKeyDown(KeyCode.S))
-                {
-                if (yRotation == 0f)
-                    {
-                    animator.SetInteger("AnimState", 8); // Power slide right
-                    }
-                }
-            else if (Input.GetKeyDown(KeyCode.S))
-                {
-                if (yRotation == 180f)
-                    {
-                    animator.SetInteger("AnimState", 9); // Power slide left
-                    }
-                }
+                animator.SetInteger("AnimState", 5); // fall left
+            return;
+        }
+
+        float speed = Mathf.Abs(playerController.GetComponent<Rigidbody2D>().linearVelocity.x);
+
+        if (speed > 0.07f)
+        {
+            if (Input.GetKey(KeyCode.D))
+                animator.SetInteger("AnimState", 1); // walk right
+            else if (Input.GetKey(KeyCode.A))
+                animator.SetInteger("AnimState", 3); // walk left
         }
         else
         {

@@ -73860,15 +73860,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 940cfdcd5caaf1145b645cf9fc6f6659, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 3.4
+  maxSpeed: 5
   jumpHeight: 6.5
   gravityScale: 1.5
   boxSize: {x: 1.13, y: 2.71}
-  CastDistance: 0.93
+  CastDistance: 0.65
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  isGrounded: 0
+  isOnSkateboard: 0
 --- !u!114 &1263360702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73882,7 +73882,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1263360703}
-  playerMovement: {fileID: 0}
+  playerController: {fileID: 1263360701}
 --- !u!95 &1263360703
 Animator:
   serializedVersion: 7
@@ -92443,9 +92443,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1611855721}
+  - component: {fileID: 1611855722}
   m_Layer: 0
   m_Name: Skate Dude but Walking
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -92467,6 +92468,27 @@ Transform:
   - {fileID: 1079886462}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1611855722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1611855720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d6d759d5a59efe4d8101ff9fe123eac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkSpeed: 3
+  runSpeed: 6
+  acceleration: 10
+  deceleration: 10
+  CastDistance: 0.1
+  boxSize: {x: 0.5, y: 0.1}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &1614497685
 GameObject:
   m_ObjectHideFlags: 0
