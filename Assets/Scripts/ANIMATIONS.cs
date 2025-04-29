@@ -30,23 +30,14 @@ public class PlayerAnimationController : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("On Skateboard: " + playerController.isOnSkateboard);
-
-        if (animator == null || playerController == null || playerMovement == null)
-        {
-            Debug.LogWarning("Animator, PlayerController, or PlayerMovement not assigned!");
-            return;
-        }
-
-        if (playerController.isOnSkateboard)
-        {
-            
-            HandleSkateboardingAnimation();
-        }
-        else
-        {
-            HandleWalkingAnimation();
-        }
+            Debug.Log("On Skateboard: " + playerController.isOnSkateboard);
+            if (animator == null || playerController == null || playerMovement == null)
+                return;
+            bool isSkating = playerMovement.enabled;
+            if (isSkating)
+                HandleSkateboardingAnimation();
+            else
+                HandleWalkingAnimation();
     }
 
     void HandleWalkingAnimation()

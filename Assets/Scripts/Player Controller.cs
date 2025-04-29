@@ -42,11 +42,13 @@ public class PlayerController : MonoBehaviour
         {
             r2d.linearVelocity = new Vector2(r2d.linearVelocity.x, jumpHeight);
         }
+        /*
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             isOnSkateboard = !isOnSkateboard;
             Debug.Log("Skateboard active: " + isOnSkateboard);
         }
+        */
     }
 
     void FixedUpdate()

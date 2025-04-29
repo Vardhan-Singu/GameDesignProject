@@ -27824,7 +27824,7 @@ MonoBehaviour:
   cameraFollow: {fileID: 605312154}
   minimapCameraFollow: {fileID: 1979918974}
   walkAnimHolderAnimator: {fileID: 0}
-  skateAnimHolderAnimator: {fileID: 1104304318}
+  skateAnimHolderAnimator: {fileID: 0}
   walkSwitchAnim: Explosion 2
   skateSwitchAnim: Explosion 3
 --- !u!1 &580870617

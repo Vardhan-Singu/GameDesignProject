@@ -1,3 +1,4 @@
+
 using UnityEngine;
 
 public class PlayerFormSwitcher : MonoBehaviour
@@ -15,8 +16,15 @@ public class PlayerFormSwitcher : MonoBehaviour
 
     private bool isSkating = false;
 
+    private Animator animator;
+    private PlayerMovement playerMovement;
+    private PlayerController playerController;
+
     void Start()
     {
+        animator = GetComponent<Animator>();
+        playerMovement = GetComponent<PlayerMovement>();
+        playerController = GetComponent<PlayerController>();
         SetForm(false);
     }
 
@@ -25,7 +33,13 @@ public class PlayerFormSwitcher : MonoBehaviour
     if (animator == null)
         return;
 
-    // Only check the component that exists
+    // Toggle form on Tab key press
+    if (Input.GetKeyDown(KeyCode.Tab))
+    {
+        isSkating = !isSkating;
+        SetForm(isSkating);
+    }
+
     if (playerMovement != null && playerMovement.enabled)
     {
         HandleSkateboardingAnimation();
@@ -35,6 +49,7 @@ public class PlayerFormSwitcher : MonoBehaviour
         HandleWalkingAnimation();
     }
     }
+
 
     void SetForm(bool skate)
     {
@@ -78,5 +93,15 @@ public class PlayerFormSwitcher : MonoBehaviour
 
         var rb = obj.GetComponent<Rigidbody2D>();
         if (rb != null) rb.simulated = enable;
+    }
+
+    void HandleWalkingAnimation()
+    {
+        // Stub method to avoid compile error
+    }
+
+    void HandleSkateboardingAnimation()
+    {
+        // Stub method to avoid compile error
     }
 }

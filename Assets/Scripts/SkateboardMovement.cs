@@ -135,12 +135,13 @@ public class PlayerMovement : MonoBehaviour
                 rb.AddTorque(-torqueForce * Time.deltaTime, ForceMode2D.Force);
             }
         }
-
+        /*
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             isOnSkateboard = !isOnSkateboard;
             Debug.Log("Skateboard active: " + isOnSkateboard);
         }
+        */
 
         if (!isOnSkateboard)
             return;
