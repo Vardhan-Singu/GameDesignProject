@@ -27915,10 +27915,10 @@ MonoBehaviour:
   skateForm: {fileID: 1144516003}
   cameraFollow: {fileID: 605312154}
   minimapCameraFollow: {fileID: 1979918974}
-  walkAnimHolderAnimator: {fileID: 0}
-  skateAnimHolderAnimator: {fileID: 0}
-  walkSwitchAnim: Explosion 2
-  skateSwitchAnim: Explosion 3
+  walkAnimHolderAnimator: {fileID: 1263360703}
+  skateAnimHolderAnimator: {fileID: 1104304318}
+  walkSwitchAnim: SwitchToWalk
+  skateSwitchAnim: SwitchToSkate
 --- !u!1 &580870617
 GameObject:
   m_ObjectHideFlags: 0
@@ -28218,7 +28218,11 @@ Transform:
   - {fileID: 978579291}
   - {fileID: 472308474}
   - {fileID: 1100833310}
+<<<<<<< HEAD
   - {fileID: 135021226}
+=======
+  - {fileID: 1761846303}
+>>>>>>> 5f2e05c4de9794011b7bdc575c8831adc654d786
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &594984603
@@ -67267,6 +67271,7 @@ GameObject:
   - component: {fileID: 1104304317}
   - component: {fileID: 1104304319}
   - component: {fileID: 1104304318}
+  - component: {fileID: 1104304320}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -67366,6 +67371,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1104304320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1104304316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a8284f0f7363534cbbf1129198e44f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 1104304318}
+  playerController: {fileID: 1263360701}
+  playerMovement: {fileID: 1144516004}
 --- !u!1 &1107704074
 GameObject:
   m_ObjectHideFlags: 0
@@ -68854,7 +68874,6 @@ GameObject:
   - component: {fileID: 1144516004}
   - component: {fileID: 1144516008}
   - component: {fileID: 1144516009}
-  - component: {fileID: 1144516010}
   m_Layer: 0
   m_Name: Skateboard But Better
   m_TagString: Player
@@ -69079,21 +69098,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1144516010
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1144516003}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a8284f0f7363534cbbf1129198e44f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 1104304318}
-  playerController: {fileID: 1263360701}
-  playerMovement: {fileID: 1144516004}
 --- !u!1 &1147148324
 GameObject:
   m_ObjectHideFlags: 0
@@ -96550,11 +96554,11 @@ Transform:
   m_GameObject: {fileID: 1761846300}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.04432692, w: 0.9990171}
-  m_LocalPosition: {x: 205.08, y: -108.86, z: 0}
+  m_LocalPosition: {x: -406.63318, y: 22.788376, z: 0.093382254}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 590855671}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 5.081}
 --- !u!68 &1761846304
 EdgeCollider2D:
@@ -107474,17 +107478,19 @@ SceneRoots:
   m_Roots:
   - {fileID: 619394802}
   - {fileID: 605312158}
+<<<<<<< HEAD
   - {fileID: 1241418835}
+=======
+  - {fileID: 1979918973}
+  - {fileID: 1853311851}
+>>>>>>> 5f2e05c4de9794011b7bdc575c8831adc654d786
   - {fileID: 1640087654}
   - {fileID: 590855671}
-  - {fileID: 1761846303}
   - {fileID: 580286997}
   - {fileID: 1611855721}
   - {fileID: 1144516005}
   - {fileID: 1840662139}
   - {fileID: 646114497}
-  - {fileID: 1853311851}
-  - {fileID: 1979918973}
   - {fileID: 1110388911}
   - {fileID: 294929568}
   - {fileID: 2141015895}
