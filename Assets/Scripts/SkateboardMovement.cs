@@ -59,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
 
     public float GetSpeed()
     {
-        return rb.velocity.magnitude;
+        return rb.linearVelocity.magnitude;
     }
 
     void Update()
@@ -124,7 +124,7 @@ public class PlayerMovement : MonoBehaviour
             isChargingOllie = false;
         }
 
-        if (Mathf.Abs(rb.velocity.y) > 0.1f)
+        if (Mathf.Abs(rb.linearVelocity.y) > 0.1f)
         {
             if (Input.GetKey(KeyCode.Q))
             {
@@ -148,48 +148,49 @@ public class PlayerMovement : MonoBehaviour
 // MAKE NOISE LOUDER
     void FixedUpdate()
     {
-        if (!isOnSkateboard) return;
+    if (!isOnSkateboard) return;
 
-        move = Input.GetAxis("Horizontal");
-        float currentAcceleration = isBoosting ? boostAcceleration : acceleration;
+    move = Input.GetAxis("Horizontal");
+    float currentAcceleration = isBoosting ? boostAcceleration : acceleration;
 
-        if (isGrounded && move != 0)
-        {
-            rb.AddForce(new Vector2(move * currentAcceleration, 0), ForceMode2D.Force);
-        }
-
-        float horizontalSpeed = Mathf.Abs(rb.velocity.x);
-
-        if (horizontalSpeed > 0.1f)
-        {
-            if (!audioSource.isPlaying || audioSource.clip != rollingSound)
-            {
-                audioSource.clip = rollingSound;
-                audioSource.loop = true;
-                audioSource.pitch = Random.Range(0.95f, 1.05f);
-                audioSource.Play();
-            }
-
-            float maxVolumeSpeed = boostMaxSpeed;
-            targetVolume = Mathf.Clamp01(horizontalSpeed / maxVolumeSpeed);
-
-            audioSource.pitch = 0.95f + (horizontalSpeed / maxVolumeSpeed) * 0.1f;
-        }
-        else
-        {
-            targetVolume = 0f;
-        }
-
-        audioSource.volume = Mathf.MoveTowards(audioSource.volume, targetVolume, Time.deltaTime * 2f);
-
-        if (audioSource.volume == 0f && audioSource.isPlaying)
-        {
-            audioSource.Stop();
-        }
-
-        if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
-        {
-            rb.velocity = new Vector2(rb.velocity.x * (1f - brakeForce * Time.fixedDeltaTime), rb.velocity.y);
-        }
+    if (isGrounded && move != 0)
+    {
+        rb.AddForce(new Vector2(move * currentAcceleration, 0), ForceMode2D.Force);
     }
+
+    float horizontalSpeed = Mathf.Abs(rb.linearVelocity.x);
+
+    if (isGrounded && horizontalSpeed > 0.1f) // <-- ADDED isGrounded check here
+    {
+        if (!audioSource.isPlaying || audioSource.clip != rollingSound)
+        {
+            audioSource.clip = rollingSound;
+            audioSource.loop = true;
+            audioSource.pitch = Random.Range(0.95f, 1.05f);
+            audioSource.Play();
+        }
+
+        float maxVolumeSpeed = boostMaxSpeed;
+        targetVolume = Mathf.Clamp01(horizontalSpeed / maxVolumeSpeed)*2.5F;
+
+        audioSource.pitch = 0.95f + (horizontalSpeed / maxVolumeSpeed) * 0.1f;
+    }
+    else
+    {
+        targetVolume = 0f;
+    }
+
+    audioSource.volume = Mathf.MoveTowards(audioSource.volume, targetVolume, Time.deltaTime * 2f);
+
+    if (audioSource.volume == 0f && audioSource.isPlaying)
+    {
+        audioSource.Stop();
+    }
+
+    if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
+    {
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x * (1f - brakeForce * Time.fixedDeltaTime), rb.linearVelocity.y);
+    }
+    }
+
 }

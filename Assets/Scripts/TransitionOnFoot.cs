@@ -5,15 +5,12 @@ using UnityEngine;
 public class Transition : MonoBehaviour
 {
     public Animator animator;
-    public PlayerController playerController; // <-- Change this
+    public PlayerController playerController;
 
     void Start()
     {
         if (animator == null)
             animator = GetComponent<Animator>();
-
-        // Try to get PlayerController
-        playerController = GetComponent<PlayerController>();
 
         if (playerController == null)
         {
@@ -31,28 +28,35 @@ public class Transition : MonoBehaviour
             return;
         }
 
-        // Check falling first
+        // ❗ FIX: Only animate when NOT on skateboard
+        if (playerController.isOnSkateboard)
+            return;
+
+        // Falling
         if (!playerController.CheckIfGrounded())
         {
             if (Input.GetKey(KeyCode.D))
-                animator.SetInteger("AnimState", 4); // fall right
+                animator.SetInteger("AnimState", 4); // Fall right
             else if (Input.GetKey(KeyCode.A))
-                animator.SetInteger("AnimState", 5); // fall left
+                animator.SetInteger("AnimState", 5); // Fall left
+            else
+                animator.SetInteger("AnimState", 4); // Default fall right if no input
             return;
         }
 
+        // Walking or Idle
         float speed = Mathf.Abs(playerController.GetComponent<Rigidbody2D>().linearVelocity.x);
 
         if (speed > 0.07f)
         {
             if (Input.GetKey(KeyCode.D))
-                animator.SetInteger("AnimState", 1); // walk right
+                animator.SetInteger("AnimState", 1); // Walk right
             else if (Input.GetKey(KeyCode.A))
-                animator.SetInteger("AnimState", 3); // walk left
+                animator.SetInteger("AnimState", 3); // Walk left
         }
         else
         {
-            animator.SetInteger("AnimState", 0); // idle
+            animator.SetInteger("AnimState", 0); // Idle
         }
     }
 }

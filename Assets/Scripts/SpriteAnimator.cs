@@ -32,7 +32,8 @@ public class SpriteAnimator : MonoBehaviour
             Debug.LogWarning("Animator or PlayerMovement is not assigned!");
             return;
         }
-
+        if (!playerMovement.isOnSkateboard)
+            return;
         float speed = playerMovement.GetSpeed();
 
         if (!playerMovement.isGrounded)

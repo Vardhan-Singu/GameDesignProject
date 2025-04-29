@@ -22,11 +22,18 @@ public class PlayerFormSwitcher : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            isSkating = !isSkating;
-            SetForm(isSkating);
-        }
+    if (animator == null)
+        return;
+
+    // Only check the component that exists
+    if (playerMovement != null && playerMovement.enabled)
+    {
+        HandleSkateboardingAnimation();
+    }
+    else if (playerController != null && playerController.enabled)
+    {
+        HandleWalkingAnimation();
+    }
     }
 
     void SetForm(bool skate)
