@@ -67971,10 +67971,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1104304316}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f76826e1a02716945a4e964efa368bfa, type: 3}
+  m_Script: {fileID: 11500000, guid: d46f19b62a31bc34ab3cdebe3c6c142b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1104304318}
+  playerController: {fileID: 1263360701}
   playerMovement: {fileID: 1144516004}
 --- !u!1 &1107704074
 GameObject:
@@ -74446,10 +74447,10 @@ GameObject:
   - component: {fileID: 1263360698}
   - component: {fileID: 1263360704}
   - component: {fileID: 1263360703}
-  - component: {fileID: 1263360702}
   - component: {fileID: 1263360701}
   - component: {fileID: 1263360700}
   - component: {fileID: 1263360699}
+  - component: {fileID: 1263360705}
   m_Layer: 0
   m_Name: Player Ground
   m_TagString: Untagged
@@ -74548,29 +74549,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 940cfdcd5caaf1145b645cf9fc6f6659, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 3.4
+  maxSpeed: 24.15
   jumpHeight: 6.5
   gravityScale: 1.5
   boxSize: {x: 1.13, y: 2.71}
-  CastDistance: 0.93
+  CastDistance: 0.38
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
   isOnSkateboard: 0
---- !u!114 &1263360702
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1263360697}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26e2fa06608463b40917adc7512a8e7a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 1263360703}
-  playerMovement: {fileID: 0}
 --- !u!95 &1263360703
 Animator:
   serializedVersion: 7
@@ -74648,6 +74635,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1263360705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1263360697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d46f19b62a31bc34ab3cdebe3c6c142b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 1263360703}
+  playerController: {fileID: 1263360701}
+  playerMovement: {fileID: 1144516004}
 --- !u!1 &1268799218
 GameObject:
   m_ObjectHideFlags: 0
