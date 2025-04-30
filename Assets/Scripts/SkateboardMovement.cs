@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -35,6 +36,9 @@ public class PlayerMovement : MonoBehaviour
     private bool isBoosting = false;
     private float boostEndTime = 0f;
     private float currentMaxSpeed;
+
+
+
 
     void Start()
     {
@@ -151,7 +155,7 @@ public class PlayerMovement : MonoBehaviour
         if (!isOnSkateboard)
             return;
 
-        // ... existing movement/boost/jump code ...
+      
     }
 
     void FixedUpdate()
@@ -188,6 +192,5 @@ public class PlayerMovement : MonoBehaviour
         rb.linearVelocity = new Vector2(rb.linearVelocity.x * (1f - brakeForce * Time.fixedDeltaTime), rb.linearVelocity.y);
     }
     }
-
 
 }
