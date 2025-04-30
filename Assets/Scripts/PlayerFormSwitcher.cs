@@ -1,3 +1,4 @@
+
 using UnityEngine;
 
 public class PlayerFormSwitcher : MonoBehaviour
@@ -29,31 +30,36 @@ public class PlayerFormSwitcher : MonoBehaviour
 
     void Update()
     {
-    if (animator == null)
-        return;
-
-    // Toggle form on Tab key press
-    if (Input.GetKeyDown(KeyCode.Tab))
-    {
         
-        //isSkating = !isSkating;
-        Debug.Log("Switching to: " + (isSkating ? "Skate" : "Walk"));
-        SetForm(isSkating);
-    }
+        Debug.Log("Update running");
+        /*
+        if (animator == null)
+            return;*/
 
-    if (playerMovement != null && playerMovement.enabled)
-    {
-        HandleSkateboardingAnimation();
-    }
-    else if (playerController != null && playerController.enabled)
-    {
-        HandleWalkingAnimation();
-    }
+        // Toggle form on Tab key press
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+        
+            isSkating = !isSkating;
+            Debug.Log("Switching to: " + (isSkating ? "Skate" : "Walk"));
+            SetForm(isSkating);
+        }
+
+        if (playerMovement != null && playerMovement.enabled)
+        {
+            HandleSkateboardingAnimation();
+        }
+        else if (playerController != null && playerController.enabled)
+        {
+            HandleWalkingAnimation();
+        }
+        
     }
 
 
     void SetForm(bool skate)
     {
+    
     if (walkForm == null || skateForm == null || cameraFollow == null || minimapCameraFollow == null) return;
 
     if (skate && skateAnimHolderAnimator != null)
