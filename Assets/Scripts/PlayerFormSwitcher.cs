@@ -15,49 +15,82 @@ public class PlayerFormSwitcher : MonoBehaviour
 
     private bool isSkating = false;
 
+    private Animator animator;
+    private PlayerMovement playerMovement;
+    private PlayerController playerController;
+
     void Start()
     {
+        animator = GetComponent<Animator>();
+        playerMovement = GetComponent<PlayerMovement>();
+        playerController = GetComponent<PlayerController>();
         SetForm(false);
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            isSkating = !isSkating;
-            SetForm(isSkating);
-        }
+    if (animator == null)
+        return;
+
+    // Toggle form on Tab key press
+    if (Input.GetKeyDown(KeyCode.Tab))
+    {
+        
+        //isSkating = !isSkating;
+        Debug.Log("Switching to: " + (isSkating ? "Skate" : "Walk"));
+        SetForm(isSkating);
     }
+
+    if (playerMovement != null && playerMovement.enabled)
+    {
+        HandleSkateboardingAnimation();
+    }
+    else if (playerController != null && playerController.enabled)
+    {
+        HandleWalkingAnimation();
+    }
+    }
+
 
     void SetForm(bool skate)
     {
-        if (walkForm == null || skateForm == null || cameraFollow == null || minimapCameraFollow == null) return;
+    if (walkForm == null || skateForm == null || cameraFollow == null || minimapCameraFollow == null) return;
 
-        if (skate && skateAnimHolderAnimator != null)
-            skateAnimHolderAnimator.SetTrigger("SwitchAnim");
-        else if (!skate && walkAnimHolderAnimator != null)
-            walkAnimHolderAnimator.SetTrigger("SwitchAnim");
+    if (skate && skateAnimHolderAnimator != null)
+        skateAnimHolderAnimator.SetTrigger("SwitchAnim");
+    else if (!skate && walkAnimHolderAnimator != null)
+        walkAnimHolderAnimator.SetTrigger("SwitchAnim");
 
-        if (skate)
-        {
-            skateForm.transform.position = walkForm.transform.position;
-            cameraFollow.SetTarget(skateForm.transform);
-            minimapCameraFollow.SetTarget(skateForm.transform);
-        }
-        else
-        {
-            Vector3 offset = Vector3.up * 5f;
-            walkForm.transform.position = skateForm.transform.position + offset;
-            cameraFollow.SetTarget(walkForm.transform);
-            minimapCameraFollow.SetTarget(walkForm.transform);
-        }
-
-        walkForm.SetActive(!skate);
-        skateForm.SetActive(skate);
-
-        EnableMovement(walkForm, !skate);
-        EnableMovement(skateForm, skate);
+    // Sync transforms
+    if (skate)
+    {
+        skateForm.transform.position = walkForm.transform.position;
+        cameraFollow.SetTarget(skateForm.transform);
+        minimapCameraFollow.SetTarget(skateForm.transform);
     }
+    else
+    {
+        walkForm.transform.position = skateForm.transform.position + Vector3.up * 5f;
+        cameraFollow.SetTarget(walkForm.transform);
+        minimapCameraFollow.SetTarget(walkForm.transform);
+    }
+
+    // Activate forms
+    walkForm.SetActive(!skate);
+    skateForm.SetActive(skate);
+
+    // Enable movement
+    EnableMovement(walkForm, !skate);
+    EnableMovement(skateForm, skate);
+
+    // UPDATE internal flags
+    var walkController = walkForm.GetComponent<PlayerController>();
+    var skateMovement = skateForm.GetComponent<PlayerMovement>();
+
+    if (walkController != null) walkController.isOnSkateboard = skate;
+    if (skateMovement != null) skateMovement.isOnSkateboard = skate;
+    }
+
 
     void EnableMovement(GameObject obj, bool enable)
     {
@@ -71,5 +104,15 @@ public class PlayerFormSwitcher : MonoBehaviour
 
         var rb = obj.GetComponent<Rigidbody2D>();
         if (rb != null) rb.simulated = enable;
+    }
+
+    void HandleWalkingAnimation()
+    {
+        // Stub method to avoid compile error
+    }
+
+    void HandleSkateboardingAnimation()
+    {
+        // Stub method to avoid compile error
     }
 }

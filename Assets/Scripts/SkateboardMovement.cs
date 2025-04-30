@@ -1,5 +1,4 @@
 using UnityEngine;
-using TMPro;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -31,14 +30,12 @@ public class PlayerMovement : MonoBehaviour
     public float ollieTiltDuration = 0.1f;
     private float ollieTiltEndTime = 0f;
 
+    private float targetVolume = 0f;
     private float move;
     private Rigidbody2D rb;
     private bool isBoosting = false;
     private float boostEndTime = 0f;
     private float currentMaxSpeed;
-
-
-
 
     void Start()
     {
@@ -73,15 +70,9 @@ public class PlayerMovement : MonoBehaviour
             if (zRotation > 90f && zRotation < 270f)
             {
                 transform.rotation = Quaternion.Euler(0, 0, 0);
-                rb.angularVelocity = 0f; // Reset spin
+                rb.angularVelocity = 0f;
             }
         }
-        /*
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            isOnSkateboard = !isOnSkateboard;
-        }
-        */
 
         isGrounded = CheckIfGrounded();
 
@@ -89,10 +80,10 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftAlt) || Input.GetKeyDown(KeyCode.RightAlt))
         {
-        if (Time.timeScale == 1f)
-            Time.timeScale = 0.3f; // Slow motion
-        else
-            Time.timeScale = 1f;   // Normal speed
+            if (Time.timeScale == 1f)
+                Time.timeScale = 0.3f;
+            else
+                Time.timeScale = 1f;
         }
 
         if (isGrounded && (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)))
@@ -144,47 +135,57 @@ public class PlayerMovement : MonoBehaviour
                 rb.AddTorque(-torqueForce * Time.deltaTime, ForceMode2D.Force);
             }
         }
-        // Toggle skateboard on/off with 'Tab' key
+        /*
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             isOnSkateboard = !isOnSkateboard;
             Debug.Log("Skateboard active: " + isOnSkateboard);
         }
+        */
 
-        // Only allow movement when on skateboard
         if (!isOnSkateboard)
             return;
-
-      
     }
-
+// MAKE NOISE LOUDER
     void FixedUpdate()
     {
-    if (!isOnSkateboard || !isGrounded) return; // Only move if on skateboard *and* grounded
+    if (!isOnSkateboard) return;
 
     move = Input.GetAxis("Horizontal");
     float currentAcceleration = isBoosting ? boostAcceleration : acceleration;
 
-    if (move != 0)
+    if (isGrounded && move != 0)
     {
         rb.AddForce(new Vector2(move * currentAcceleration, 0), ForceMode2D.Force);
-        rb.linearVelocity = new Vector2(Mathf.Clamp(rb.linearVelocity.x, -currentMaxSpeed, currentMaxSpeed), rb.linearVelocity.y);
+    }
 
-        // Play rolling sound if not already playing
-        if (!audioSource.isPlaying)
+    float horizontalSpeed = Mathf.Abs(rb.linearVelocity.x);
+
+    if (isGrounded && horizontalSpeed > 0.1f) // <-- ADDED isGrounded check here
+    {
+        if (!audioSource.isPlaying || audioSource.clip != rollingSound)
         {
             audioSource.clip = rollingSound;
             audioSource.loop = true;
+            audioSource.pitch = Random.Range(0.95f, 1.05f);
             audioSource.Play();
         }
+
+        float maxVolumeSpeed = boostMaxSpeed;
+        targetVolume = Mathf.Clamp01(horizontalSpeed / maxVolumeSpeed)*2.5F;
+
+        audioSource.pitch = 0.95f + (horizontalSpeed / maxVolumeSpeed) * 0.1f;
     }
     else
     {
-        // Stop rolling sound if not moving
-        if (audioSource.isPlaying && audioSource.clip == rollingSound)
-        {
-            audioSource.Stop();
-        }
+        targetVolume = 0f;
+    }
+
+    audioSource.volume = Mathf.MoveTowards(audioSource.volume, targetVolume, Time.deltaTime * 2f);
+
+    if (audioSource.volume == 0f && audioSource.isPlaying)
+    {
+        audioSource.Stop();
     }
 
     if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))

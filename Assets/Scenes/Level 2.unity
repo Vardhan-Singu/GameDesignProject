@@ -28092,7 +28092,7 @@ MonoBehaviour:
   skateForm: {fileID: 1144516003}
   cameraFollow: {fileID: 605312154}
   minimapCameraFollow: {fileID: 1979918974}
-  walkAnimHolderAnimator: {fileID: 0}
+  walkAnimHolderAnimator: {fileID: 1263360703}
   skateAnimHolderAnimator: {fileID: 1104304318}
   walkSwitchAnim: Explosion 2
   skateSwitchAnim: Explosion 3
@@ -74556,7 +74556,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  isGrounded: 0
+  isOnSkateboard: 0
 --- !u!114 &1263360702
 MonoBehaviour:
   m_ObjectHideFlags: 0

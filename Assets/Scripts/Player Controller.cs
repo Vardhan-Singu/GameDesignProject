@@ -12,7 +12,8 @@ public class PlayerController : MonoBehaviour
     public float CastDistance = 0.1f;                 // renamed from groundCheckDistance
     public LayerMask groundLayer;
 
-    [SerializeField] private bool isGrounded;
+    private bool isGrounded;
+    public bool isOnSkateboard = false;
 
     float moveDirection = 0;
     Rigidbody2D r2d;
@@ -41,6 +42,13 @@ public class PlayerController : MonoBehaviour
         {
             r2d.linearVelocity = new Vector2(r2d.linearVelocity.x, jumpHeight);
         }
+        /*
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            isOnSkateboard = !isOnSkateboard;
+            Debug.Log("Skateboard active: " + isOnSkateboard);
+        }
+        */
     }
 
     void FixedUpdate()
