@@ -84950,6 +84950,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1362434063}
   - component: {fileID: 1362434064}
+  - component: {fileID: 1362434065}
   m_Layer: 0
   m_Name: Bottom Wall Collider
   m_TagString: Untagged
@@ -84966,7 +84967,7 @@ Transform:
   m_GameObject: {fileID: 1362434062}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -290, y: -21.3, z: 0}
+  m_LocalPosition: {x: -214.3, y: -21.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -85018,6 +85019,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1026.0144, y: 6.209049}
   m_EdgeRadius: 0
+--- !u!114 &1362434065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1362434062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8a188a78d51c4b418dbe7a2c9f96c5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelManager: {fileID: 769390394}
 --- !u!1 &1367093831
 GameObject:
   m_ObjectHideFlags: 0
