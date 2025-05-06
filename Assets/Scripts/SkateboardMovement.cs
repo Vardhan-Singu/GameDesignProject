@@ -62,6 +62,12 @@ public class PlayerMovement : MonoBehaviour
         return rb.linearVelocity.magnitude;
     }
 
+    private bool IsFlippedOver()
+    {
+        float zRotation = transform.rotation.eulerAngles.z;
+        return zRotation > 90f && zRotation < 270f;
+    }
+
     void Update()
     {
         if (isGrounded && Input.GetKeyDown(KeyCode.R))
@@ -104,7 +110,7 @@ public class PlayerMovement : MonoBehaviour
             if (currentMaxSpeed < maxSpeed) currentMaxSpeed = maxSpeed;
         }
 
-        if (isGrounded && Input.GetKeyDown(KeyCode.Space))
+        if (isGrounded && !IsFlippedOver() && Input.GetKeyDown(KeyCode.Space))
         {
             isChargingOllie = true;
             ollieChargeStartTime = Time.time;
@@ -135,63 +141,55 @@ public class PlayerMovement : MonoBehaviour
                 rb.AddTorque(-torqueForce * Time.deltaTime, ForceMode2D.Force);
             }
         }
-        /*
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            isOnSkateboard = !isOnSkateboard;
-            Debug.Log("Skateboard active: " + isOnSkateboard);
-        }
-        */
 
         if (!isOnSkateboard)
             return;
     }
-// MAKE NOISE LOUDER
+
     void FixedUpdate()
     {
-    if (!isOnSkateboard) return;
+        if (!isOnSkateboard) return;
 
-    move = Input.GetAxis("Horizontal");
-    float currentAcceleration = isBoosting ? boostAcceleration : acceleration;
+        move = Input.GetAxis("Horizontal");
+        float currentAcceleration = isBoosting ? boostAcceleration : acceleration;
 
-    if (isGrounded && move != 0)
-    {
-        rb.AddForce(new Vector2(move * currentAcceleration, 0), ForceMode2D.Force);
-    }
-
-    float horizontalSpeed = Mathf.Abs(rb.linearVelocity.x);
-
-    if (isGrounded && horizontalSpeed > 0.1f) // <-- ADDED isGrounded check here
-    {
-        if (!audioSource.isPlaying || audioSource.clip != rollingSound)
+        if (isGrounded && !IsFlippedOver() && move != 0)
         {
-            audioSource.clip = rollingSound;
-            audioSource.loop = true;
-            audioSource.pitch = Random.Range(0.95f, 1.05f);
-            audioSource.Play();
+            rb.AddForce(new Vector2(move * currentAcceleration, 0), ForceMode2D.Force);
         }
 
-        float maxVolumeSpeed = boostMaxSpeed;
-        targetVolume = Mathf.Clamp01(horizontalSpeed / maxVolumeSpeed)*2.5F;
+        float horizontalSpeed = Mathf.Abs(rb.linearVelocity.x);
 
-        audioSource.pitch = 0.95f + (horizontalSpeed / maxVolumeSpeed) * 0.1f;
-    }
-    else
-    {
-        targetVolume = 0f;
-    }
+        if (isGrounded && horizontalSpeed > 0.1f)
+        {
+            if (!audioSource.isPlaying || audioSource.clip != rollingSound)
+            {
+                audioSource.clip = rollingSound;
+                audioSource.loop = true;
+                audioSource.pitch = Random.Range(0.95f, 1.05f);
+                audioSource.Play();
+            }
 
-    audioSource.volume = Mathf.MoveTowards(audioSource.volume, targetVolume, Time.deltaTime * 2f);
+            float maxVolumeSpeed = boostMaxSpeed;
+            targetVolume = Mathf.Clamp01(horizontalSpeed / maxVolumeSpeed) * 2.5f;
 
-    if (audioSource.volume == 0f && audioSource.isPlaying)
-    {
-        audioSource.Stop();
-    }
+            audioSource.pitch = 0.95f + (horizontalSpeed / maxVolumeSpeed) * 0.1f;
+        }
+        else
+        {
+            targetVolume = 0f;
+        }
 
-    if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
-    {
-        rb.linearVelocity = new Vector2(rb.linearVelocity.x * (1f - brakeForce * Time.fixedDeltaTime), rb.linearVelocity.y);
-    }
-    }
+        audioSource.volume = Mathf.MoveTowards(audioSource.volume, targetVolume, Time.deltaTime * 2f);
 
+        if (audioSource.volume == 0f && audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
+
+        if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x * (1f - brakeForce * Time.fixedDeltaTime), rb.linearVelocity.y);
+        }
+    }
 }
