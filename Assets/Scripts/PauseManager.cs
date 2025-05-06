@@ -9,7 +9,7 @@ public class PauseManager : MonoBehaviour
         {
             // Store current scene name in PlayerPrefs
             PlayerPrefs.SetString("PreviousScene", SceneManager.GetActiveScene().name);
-            SceneManager.LoadScene("PauseMenu");
+            SceneManager.LoadScene("Pause Menu");
         }
     }
 }
