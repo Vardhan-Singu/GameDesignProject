@@ -8,6 +8,6 @@ public class TopPipeCollider : MonoBehaviour
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        levelManager.LoadLevel("Level 1");
+        levelManager.LoadLevel("Win #1");
     }
 }
