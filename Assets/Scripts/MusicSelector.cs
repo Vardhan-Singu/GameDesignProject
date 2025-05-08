@@ -2,29 +2,31 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class MusicSelector : MonoBehaviour
+public class MusicDropdownController : MonoBehaviour
 {
+    
+    public TMP_Dropdown dropdown;
     public AudioSource audioSource;
     public AudioClip[] songs;
-    public string[] songNames;
-    public TMP_Dropdown dropdown;
-    public TMP_Text songDisplay;
+    
 
     void Start()
     {
-        // Fill dropdown with song names
-        dropdown.ClearOptions();
-        dropdown.AddOptions(new System.Collections.Generic.List<string>(songNames));
-        dropdown.onValueChanged.AddListener(PlaySelectedSong);
-        
-        // Play default song
-        PlaySelectedSong(0);
+        dropdown.onValueChanged.AddListener(OnSongSelected);
+        PlaySong(0); // Play default song at start
     }
 
-    void PlaySelectedSong(int index)
+    void OnSongSelected(int index)
     {
-        audioSource.clip = songs[index];
-        audioSource.Play();
-        songDisplay.text = "Now Playing: " + songNames[index];
+        PlaySong(index);
+    }
+
+    void PlaySong(int index)
+    {
+        if (index >= 0 && index < songs.Length)
+        {
+            audioSource.clip = songs[index];
+            audioSource.Play();
+        }
     }
 }
