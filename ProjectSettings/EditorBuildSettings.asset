@@ -18,7 +18,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Win #1.unity
     guid: aeadede13151fe74b8a1228744fd32f5
   - enabled: 1
-    path: Assets/Scenes/Level 2.unity
+    path: Assets/Scenes/Tutorial Level.unity
     guid: 24ef7dd052e0afb41999552c5de2bf9d
   - enabled: 1
     path: Assets/Scenes/Kyle.unity
@@ -30,7 +30,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Nathan.unity
     guid: 1a55a80860bdf61498738c0c7ea6dd74
   - enabled: 1
-    path: Assets/Scenes/Vardhan.unity
+    path: Assets/Scenes/Cave Level.unity
     guid: 24769627949b40742a7e62a76f57e86b
   - enabled: 1
     path: Assets/Scenes/Pause Menu.unity
