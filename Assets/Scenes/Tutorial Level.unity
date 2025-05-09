@@ -15180,7 +15180,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 52.94336, y: -447}
+  m_AnchoredPosition: {x: 52.94336, y: -351.7}
   m_SizeDelta: {x: 105.8867, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &145712496
@@ -27387,7 +27387,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -569.7, y: -236.6}
+  m_AnchoredPosition: {x: -553, y: -192}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &536657434
@@ -62772,7 +62772,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -549.9, y: -195.8}
+  m_AnchoredPosition: {x: -533.2, y: -151.2}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &953053051
@@ -92335,8 +92335,8 @@ MonoBehaviour:
   velocitySlider: {fileID: 536657434}
   fillImage: {fileID: 837390828}
   maxSpeed: 120
-  slowColor: {r: 0, g: 0.06282759, b: 1, a: 1}
-  fastColor: {r: 0.7924528, g: 0, b: 0.072888285, a: 1}
+  slowColor: {r: 0.3328681, g: 0, b: 1, a: 1}
+  fastColor: {r: 1, g: 0, b: 0.5727849, a: 1}
 --- !u!4 &1560369827
 Transform:
   m_ObjectHideFlags: 0
