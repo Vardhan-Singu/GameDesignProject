@@ -4,11 +4,25 @@ using TMPro;
 
 public class MusicDropdownController : MonoBehaviour
 {
-    
     public TMP_Dropdown dropdown;
     public AudioSource audioSource;
     public AudioClip[] songs;
-    
+
+    private static MusicDropdownController instance;
+
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject); // Prevent duplicate music controllers
+            return;
+        }
+    }
 
     void Start()
     {
