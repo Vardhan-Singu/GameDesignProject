@@ -3,20 +3,20 @@ using UnityEngine.UI;
 
 public class LoseScreen : MonoBehaviour
 {
-    public GameObject loseScreenUI;  // Your lose screen GameObject
-    public Text hintText;            // The Text UI element for hints
-
-    string[] hints = {
-        "Press R to rotate yourself",
-        "Hold Shift to sprint",
-        "Avoid red zones—they're dangerous!",
-        "Use cover to stay hidden",
-        "Some walls can be climbed!"
+    public Text hintText; // Assign this in the Inspector
+    private string[] hints = {
+        "Spam the shift bar as fast as you can to speed up.",
+        "Use the minimap to find any upcoming obstacles or where you're about to land.",
+        "Use 'Alt' to slow down and pair it with the 'Q' and 'E' to land perfectly.",
+        "Use R to rotate yourself.",
+        "Use 'S' to power slide",
+        "I wonder what spamming tab does..."
     };
 
-    public void ShowLoseScreen()
+    void OnEnable()
     {
-        loseScreenUI.SetActive(true);
-        hintText.text = "Hint: " + hints[Random.Range(0, hints.Length)];
+        // Show a random hint when the lose screen is activated
+        int index = Random.Range(0, hints.Length);
+        hintText.text = "Hint: " + hints[index];
     }
 }
