@@ -28258,7 +28258,7 @@ MonoBehaviour:
   target: {fileID: 0}
   fallOffset: 5
   smoothFallSpeed: 2
-  minZoom: 7.5
+  minZoom: 10
   maxZoom: 15
   zoomSpeed: 2
   cameraAccelerationTime: 2
