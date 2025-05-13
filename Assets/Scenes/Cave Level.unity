@@ -64889,7 +64889,7 @@ GameObject:
   - component: {fileID: 1425801705}
   - component: {fileID: 1425801709}
   - component: {fileID: 1425801708}
-  - component: {fileID: 1425801707}
+  - component: {fileID: 1425801710}
   - component: {fileID: 1425801706}
   m_Layer: 0
   m_Name: Yourself (4)
@@ -64959,40 +64959,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 3.2142792, y: 3.0329332}
   m_EdgeRadius: 0
---- !u!114 &1425801707
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1425801704}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 767e72b2828f5c84597198d598bba639, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialogueBubble: {fileID: 165193242}
-  dialogueText: {fileID: 165193244}
-  interactMessage: {fileID: 2064561773}
-  dialogueLines:
-  - "\"Well... here we are. The finale. The end of your epic journey. The end of
-    all your struggles, all your pain, all your questionable decisions that somehow
-    led to this very moment. I\u2019m not gonna lie, this was supposed to be way
-    bigger.\""
-  - '[He pauses for dramatic effect, staring off into the void like he''s reflecting
-    on what could have been.]  '
-  - "\"You know, we had big plans for this game. A whole forest level\u2014yep, trees,
-    wildlife, nature... until I realized I\u2019m allergic to trees, and, well, that
-    just didn\u2019t vibe with my vision anymore. Maybe that\u2019s for the next
-    game\u2026 if there even is one, ha. Who knows?\"  "
-  - "\"And the city level? Ohhh man... that thing was gonna be different. I\u2019m
-    talking skyscrapers you could grind down like a baguette, highways that looped
-    into the sky, and cars that didn\u2019t even drive\u2014they just screamed.\"  "
-  - "\"But who cares? It\u2019s over. This is it. You finished. You survived the
-    rampocalypse. You made it here. And honestly? Maybe this is the perfect ending.
-    Maybe the game\u2019s better this way. Weird. Incomplete. A little unsettling.\"  "
-  - "\"Congratulations, kid. You\u2019re officially part of the unfinished masterpiece.
-    And if you ever wonder what else was supposed to happen, well\u2026 good luck.\""
 --- !u!95 &1425801708
 Animator:
   serializedVersion: 7
@@ -65070,6 +65036,40 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1425801710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1425801704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 767e72b2828f5c84597198d598bba639, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueBubble: {fileID: 2107879648}
+  dialogueText: {fileID: 2107879650}
+  interactMessage: {fileID: 896641838}
+  dialogueLines:
+  - "\"Well... here we are. The finale. The end of your epic journey. The end of
+    all your struggles, all your pain, all your questionable decisions that somehow
+    led to this very moment. I\u2019m not gonna lie, this was supposed to be way
+    bigger.\""
+  - '[He pauses for dramatic effect, staring off into the void like he''s reflecting
+    on what could have been.]  '
+  - "\"You know, we had big plans for this game. A whole forest level\u2014yep, trees,
+    wildlife, nature... until I realized I\u2019m allergic to trees, and, well, that
+    just didn\u2019t vibe with my vision anymore. Maybe that\u2019s for the next
+    game\u2026 if there even is one, ha. Who knows?\"  "
+  - "\"And the city level? Ohhh man... that thing was gonna be different. I\u2019m
+    talking skyscrapers you could grind down like a baguette, highways that looped
+    into the sky, and cars that didn\u2019t even drive\u2014they just screamed.\"  "
+  - "\"But who cares? It\u2019s over. This is it. You finished. You survived the
+    rampocalypse. You made it here. And honestly? Maybe this is the perfect ending.
+    Maybe the game\u2019s better this way. Weird. Incomplete. A little unsettling.\"  "
+  - "\"Congratulations, kid. You\u2019re officially part of the unfinished masterpiece.
+    And if you ever wonder what else was supposed to happen, well\u2026 good luck.\""
 --- !u!1 &1426727327
 GameObject:
   m_ObjectHideFlags: 0
